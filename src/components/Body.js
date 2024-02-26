@@ -2,6 +2,7 @@ import React from "react";
 import Browse from "./Browse";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Login";
+import Watch from "./Watch";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -13,6 +14,10 @@ const Body = () => {
       path: "browse",
       element: <Browse></Browse>,
     },
+    {
+      path: "watch",
+      element: <Watch></Watch>
+    }
   ]);
 
   return (
