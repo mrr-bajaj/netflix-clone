@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useURLChecker from "../hooks/useURLChecker";
 
 const VideoTitle = ({ title, overview, movieId }) => {
+  const { setPath } = useURLChecker();
   return (
     <div className="pt-[20%] px-6 md:px-24 absolute bg-gradient-to-r from-black w-[100%] aspect-video text-white">
       <h1 className="text-2xl md:text-6xl font-bold">{title}</h1>
@@ -14,9 +16,14 @@ const VideoTitle = ({ title, overview, movieId }) => {
             ▶ Play
           </button>{" "}
         </Link>
-        <button className="hidden md:inline-block  bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg mx-2">
-          More Info
-        </button>
+        <Link to={"?jbv=" + movieId}>
+          <button
+            className="hidden md:inline-block  bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg mx-2"
+            onClick={() => setPath(movieId)}
+          >
+            More Info
+          </button>
+        </Link>
       </div>
     </div>
   );

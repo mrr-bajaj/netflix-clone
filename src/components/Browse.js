@@ -6,13 +6,14 @@ import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import GptSearchPage from "./GptSearchPage";
 import { useSelector } from "react-redux";
+import Modal from "./Modal";
 
 const Browse = () => {
   useNowPlayingMovies();
   usePopularMovies();
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   return (
-    <div>
+    <div className="relative">
       <Header></Header>
       {showGptSearch ? (
         <GptSearchPage></GptSearchPage>
@@ -22,6 +23,7 @@ const Browse = () => {
           <SecondaryContainer></SecondaryContainer>
         </>
       )}
+      <Modal></Modal>
     </div>
   );
 };
