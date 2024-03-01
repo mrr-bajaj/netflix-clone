@@ -6,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -18,6 +20,7 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const dispatch = useDispatch();
+  const provider = new GoogleAuthProvider();
   const handleButtonClick = () => {
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
@@ -65,6 +68,18 @@ const Login = () => {
         });
     }
   };
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((d) => {
+        const { uid, email, displayName, photoURL } = d.user;
+        dispatch(addUser({ uid, email, displayName, photoURL }));
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMessage(errorCode + "-" + errorMessage);
+      });
+  };
   const toggleSignUpForm = () => {
     setIsSignInForm(!isSignInForm);
   };
@@ -72,7 +87,11 @@ const Login = () => {
     <div>
       <Header></Header>
       <div className="absolute">
-        <img className="h-screen w-screen object-cover" src={BG_URL} alt="background"></img>
+        <img
+          className="h-screen w-screen object-cover"
+          src={BG_URL}
+          alt="background"
+        ></img>
       </div>
       <form
         onSubmit={(e) => {
@@ -110,6 +129,14 @@ const Login = () => {
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
+        {isSignInForm && (
+          <button
+            className="my-4 p-4 w-full bg-red-700 rounded-lg"
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </button>
+        )}
         <p className="py-4 cursor-pointer" onClick={toggleSignUpForm}>
           {isSignInForm
             ? "New to Netflix? Sign Up Now"

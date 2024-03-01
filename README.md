@@ -7,10 +7,10 @@
 5. Multiple Profile
 6. Search
 7. initial loader
-8. Play button -- 1
-9. More Info button -- 2
+8. Play button -- 1 -- done
+9. More Info button -- 2 -- done
 10. On hovering, showing the data on the card -- 3
 11. on play -> save into continue watching (recently played/viewed)
 12. add to my list
-13. more like this (recommendation)
+13. more like this (recommendation) -- done
 14. navbar -- home, my list
