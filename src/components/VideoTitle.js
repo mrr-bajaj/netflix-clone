@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import useURLChecker from "../hooks/useURLChecker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { updatePath } from "../utils/configSlice";
 
 const VideoTitle = ({ title, overview, movieId }) => {
-  const { setPath } = useURLChecker();
+  const dispatch = useDispatch();
   return (
     <div className="pt-[20%] px-6 md:px-24 absolute bg-gradient-to-r from-black w-[100%] aspect-video text-white">
       <h1 className="text-2xl md:text-6xl font-bold">{title}</h1>
@@ -21,7 +22,9 @@ const VideoTitle = ({ title, overview, movieId }) => {
         <Link to={"?jbv=" + movieId}>
           <button
             className="hidden md:inline-block  bg-gray-500 text-white p-4 px-12 text-xl bg-opacity-50 rounded-lg mx-2"
-            onClick={() => setPath(movieId)}
+            onClick={() => {
+              dispatch(updatePath(movieId));
+            }}
           >
             More Info
           </button>

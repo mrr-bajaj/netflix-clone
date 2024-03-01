@@ -14,8 +14,6 @@ const useURLChecker = () => {
     const key = params.get("jbv");
     if (key) setPath(key);
   }, []);
-
-  return { setPath };
 };
 
 export default useURLChecker;

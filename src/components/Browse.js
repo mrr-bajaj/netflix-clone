@@ -9,8 +9,10 @@ import { useSelector } from "react-redux";
 import Modal from "./Modal";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
+import useURLChecker from "../hooks/useURLChecker";
 
 const Browse = () => {
+  useURLChecker()
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();

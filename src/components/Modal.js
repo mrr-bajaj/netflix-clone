@@ -12,6 +12,7 @@ const Modal = () => {
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
+  const key = useSelector((store) => store.config.path);
   const handleCloseButton = () => {
     window.history.replaceState({}, document.title, window.location.pathname);
     dispatch(updatePath(null));
@@ -25,7 +26,10 @@ const Modal = () => {
           className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50"
           onClick={handleCloseButton}
         >
-          <div className="bg-black text-white rounded-lg shadow-lg- w-[45%] max-h-[95vh] overflow-y-auto scrollbar-hide ">
+          <div
+            className="bg-black text-white rounded-lg shadow-lg- w-[45%] max-h-[95vh] overflow-y-auto scrollbar-hide "
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex mb-4 flex-col">
               <div className="relative">
                 <iframe
@@ -39,7 +43,7 @@ const Modal = () => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 ></iframe>
                 <div className="absolute z-100 m-6 mt-[-20%]">
-                  <Link to={"/watch?v=" + modalVideo?.key}>
+                  <Link to={"/watch?v=" + key}>
                     <button className="bg-white font-bold text-lg text-black px-10 py-2 rounded-md">
                       <FontAwesomeIcon color="black" icon={faPlay} /> Play
                     </button>

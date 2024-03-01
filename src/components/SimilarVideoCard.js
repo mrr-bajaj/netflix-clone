@@ -1,11 +1,14 @@
 import React from "react";
+import { useNavigate} from "react-router-dom"
 
 const SimilarVideoCard = ({ videoInfo }) => {
+  const navigate = useNavigate();
   if (!videoInfo?.backdrop_path) return;
-  console.log(videoInfo);
   return (
     <>
-      <div className="shadow-md bg-gray-800 w-[30%] rounded-lg mt-3 m-2">
+      <div className="shadow-md bg-gray-800 w-[30%] rounded-lg mt-3 m-2 cursor-pointer" onClick={(e)=>{
+        navigate('/watch?v='+ videoInfo?.id)
+      }}>
         <img
           className="w-full h-[16vh] rounded-t-lg"
           alt="thumbnail"
