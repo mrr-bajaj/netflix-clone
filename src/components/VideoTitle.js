@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useURLChecker from "../hooks/useURLChecker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const VideoTitle = ({ title, overview, movieId }) => {
   const { setPath } = useURLChecker();
@@ -13,7 +15,7 @@ const VideoTitle = ({ title, overview, movieId }) => {
           {" "}
           <button className="bg-white text-black py-2 my-1 md:py-4 px-4 md:px-12 text-sm md:text-xl hover:bg-opacity-80 rounded-lg">
             {" "}
-            ▶ Play
+            <FontAwesomeIcon color="black" icon={faPlay} /> Play
           </button>{" "}
         </Link>
         <Link to={"?jbv=" + movieId}>

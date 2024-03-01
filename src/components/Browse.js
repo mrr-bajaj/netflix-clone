@@ -7,10 +7,14 @@ import usePopularMovies from "../hooks/usePopularMovies";
 import GptSearchPage from "./GptSearchPage";
 import { useSelector } from "react-redux";
 import Modal from "./Modal";
+import useTopRatedMovies from "../hooks/useTopRatedMovies";
+import useUpcomingMovies from "../hooks/useUpcomingMovies";
 
 const Browse = () => {
   useNowPlayingMovies();
   usePopularMovies();
+  useTopRatedMovies();
+  useUpcomingMovies();
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   return (
     <div className="relative">
