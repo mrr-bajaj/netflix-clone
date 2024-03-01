@@ -21,14 +21,15 @@ const Profiles = () => {
             <div className="flex flex-col items-center justify-center">
               <div className="text-6xl text-white">Who's watching?</div>
               <div className="flex m-2">
-                {profiles.length > 0 &&
+                {profiles &&
+                  profiles?.length > 0 &&
                   profiles.map((profile, index) => (
                     <UserProfileCard
                       key={index}
                       profileInfo={profile}
                     ></UserProfileCard>
                   ))}
-                {profiles.length < 4 && (
+                {profiles && profiles?.length < 4 && (
                   <div
                     className=" group cursor-pointer"
                     onClick={handleAddProfile}

@@ -11,15 +11,30 @@ const userSlice = createSlice({
   },
   reducers: {
     addUser: (state, action) => {
-      const { displayName, email, photoURL, uid } = action.payload;
-      state.displayName = displayName;
-      state.email = email;
-      state.photoURL = photoURL;
-      state.uid = uid;
+      const { displayName, email, photoURL, uid, profiles } = action.payload;
+      return {
+        ...state,
+        displayName,
+        email,
+        photoURL,
+        uid,
+        profiles,
+      };
+      //DOUBT
+      // state.displayName = displayName;
+      // state.email = email;
+      // state.photoURL = photoURL;
+      // state.uid = uid;
       //   return action.payload;
     },
     removeUser: (state, action) => {
-      return null;
+      return {
+        displayName: null,
+        email: null,
+        photoURL: null,
+        uid: null,
+        profiles: [],
+      };
     },
     addProfile: (state, action) => {
       state.profiles.push(action.payload);

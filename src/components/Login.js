@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -12,6 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BG_URL, USER_AVATARS } from "../utils/constants";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -21,6 +22,25 @@ const Login = () => {
   const password = useRef(null);
   const dispatch = useDispatch();
   const provider = new GoogleAuthProvider();
+  const postUser = async (user) => {
+    try {
+      await addDoc(collection(db, "users"), user);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+  const getUser = async () => {
+    try {
+      return await getDocs(collection(db, "users")).then((querySnapshot) => {
+        const existingEmails = querySnapshot.docs.map((doc) => {
+          return doc.data().email;
+        });
+        return existingEmails;
+      });
+    } catch (e) {
+      console.error("error fetching documents", e);
+    }
+  };
   const handleButtonClick = () => {
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
@@ -38,9 +58,15 @@ const Login = () => {
             displayName: name.current.value,
             photoURL: USER_AVATARS[0],
           })
-            .then(() => {
+            .then(async () => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
-              dispatch(addUser({ uid, email, displayName, photoURL }));
+              const existingEmails = await getUser();
+              if (!existingEmails.includes(email)) {
+                postUser({ uid, email, displayName, photoURL, profiles: [] });
+              }
+              dispatch(
+                addUser({ uid, email, displayName, photoURL, profiles: [] })
+              );
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -70,9 +96,13 @@ const Login = () => {
   };
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((d) => {
+      .then(async (d) => {
         const { uid, email, displayName, photoURL } = d.user;
-        dispatch(addUser({ uid, email, displayName, photoURL }));
+        const existingEmails = await getUser();
+        if (!existingEmails.includes(email)) {
+          postUser({ uid, email, displayName, photoURL, profiles: [] });
+        }
+        dispatch(addUser({ uid, email, displayName, photoURL, profiles: [] }));
       })
       .catch((error) => {
         const errorCode = error.code;
