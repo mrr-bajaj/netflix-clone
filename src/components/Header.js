@@ -19,20 +19,20 @@ const Header = () => {
         navigate("/error");
       });
   };
-  const handleLanguageChange = (e) => {
-    dispatch(changeLanguage(e.target.value));
-  };
-  const handleGptSearchClick = () => {
-    dispatch(toggleGptSearchView());
-  };
+  // const handleLanguageChange = (e) => {
+  //   dispatch(changeLanguage(e.target.value));
+  // };
+  // const handleGptSearchClick = () => {
+  //   dispatch(toggleGptSearchView());
+  // };
+  // const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   const user = useSelector((store) => store.user);
-  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
         dispatch(addUser({ uid, email, displayName, photoURL }));
-        if (location.pathname === "/") navigate("/browse");
+        if (location.pathname === "/") navigate("/profiles");
       } else {
         dispatch(removeUser());
         navigate("/");
@@ -46,7 +46,7 @@ const Header = () => {
       <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo"></img>
       {user && (
         <div className="flex justify-between p-2">
-          {showGptSearch && (
+          {/* {showGptSearch && (
             <select
               className="m-2 p-2 bg-gray-600 text-white"
               onChange={handleLanguageChange}
@@ -57,13 +57,13 @@ const Header = () => {
                 </option>
               ))}
             </select>
-          )}
-          <button
+          )} */}
+          {/* <button
             className="text-white bg-purple-700 m-2 py-2 px-4"
             onClick={handleGptSearchClick}
           >
             {showGptSearch ? "Home" : "GPT Search"}
-          </button>
+          </button> */}
           <div className="flex">
             <img
               className="w-12 h-12 m-2"

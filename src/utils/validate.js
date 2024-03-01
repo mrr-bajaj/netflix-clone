@@ -7,3 +7,10 @@ export const checkValidData = (email, password) => {
   if (!isPasswordValid) return "Password is not valid";
   return null;
 };
+
+export const checkProfileName = (name, existingNames) => {
+  if (!name) return "Please enter a name";
+  if (existingNames?.includes(name)) return "Name already exists!";
+  if (name.length > 30) return "Please enter name size less than 30";
+  return null;
+};
