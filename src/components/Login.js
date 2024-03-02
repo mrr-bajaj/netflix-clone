@@ -24,33 +24,31 @@ const Login = () => {
   const provider = new GoogleAuthProvider();
   const postUser = async (user) => {
     try {
-      await addDoc(collection(db, "users"), user);
+      const docRef = await addDoc(collection(db, "users"), user);
+      localStorage.setItem("userId", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   };
   const getUser = async () => {
     try {
-      return await getDocs(collection(db, "users")).then((querySnapshot) => {
-        const existingEmails = querySnapshot.docs.map((doc) => {
-          return doc.data().email;
-        });
-        return existingEmails;
-      });
+      const querySnapshot = await getDocs(collection(db, "users"));
+      return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        email: doc.data().email,
+      }));
     } catch (e) {
       console.error("error fetching documents", e);
     }
   };
   const handleButtonClick = () => {
-    const message = checkValidData(email.current.value, password.current.value);
+    const userEmail = email.current.value;
+    const userPassword = password.current.value;
+    const message = checkValidData(userEmail, userPassword);
     setErrorMessage(message);
     if (message) return;
     if (!isSignInForm) {
-      createUserWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      createUserWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
@@ -78,11 +76,7 @@ const Login = () => {
           setErrorMessage(errorCode + "-" + errorMessage);
         });
     } else {
-      signInWithEmailAndPassword(
-        auth,
-        email.current.value,
-        password.current.value
-      )
+      signInWithEmailAndPassword(auth, userEmail, userPassword)
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
@@ -98,9 +92,12 @@ const Login = () => {
     signInWithPopup(auth, provider)
       .then(async (d) => {
         const { uid, email, displayName, photoURL } = d.user;
-        const existingEmails = await getUser();
-        if (!existingEmails.includes(email)) {
+        const existingUsers = await getUser();
+        const user = existingUsers.find((user) => user.email === email);
+        if (!user) {
           postUser({ uid, email, displayName, photoURL, profiles: [] });
+        } else {
+          localStorage.setItem("userId", user.id);
         }
         dispatch(addUser({ uid, email, displayName, photoURL, profiles: [] }));
       })

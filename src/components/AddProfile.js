@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAddProfile } from "../utils/configSlice";
 import { addProfile } from "../utils/userSlice";
 import { checkProfileName } from "../utils/validate";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../utils/firebase";
 
 const AddProfile = ({ count }) => {
   const dispatch = useDispatch();
@@ -11,14 +13,31 @@ const AddProfile = ({ count }) => {
   const img = useRef(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const profiles = useSelector((store) => store.user.profiles);
+  const postProfile = async (userProfile) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const docRef = doc(db, "users", userId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const updatedProfiles = [...docSnap.data().profiles, userProfile];
+        await updateDoc(docRef, {
+          profiles: updatedProfiles,
+        });
+      }
+    } catch (e) {
+      console.log("error updating profile", e);
+    }
+  };
+
   const handleContinue = () => {
-    const message = checkProfileName(name.current.value);
+    const message = checkProfileName(name.current.value.trim());
     setErrorMessage(message);
     if (message) return;
     const userProfile = {
       name: name.current.value,
       photoURL: img.current.src,
     };
+    postProfile(userProfile);
     dispatch(addProfile(userProfile));
     dispatch(showAddProfile(false));
   };

@@ -3,11 +3,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAddProfile } from "../utils/configSlice";
 import Header from "./Header";
 import UserProfileCard from "./UserProfileCard";
+import { db } from "../utils/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { addProfile } from "../utils/userSlice";
+import { useEffect } from "react";
 
 const Profiles = () => {
+  const dispatch = useDispatch();
   const showProfile = useSelector((store) => store.config.showProfile);
   const profiles = useSelector((store) => store.user.profiles);
-  const dispatch = useDispatch();
+  useEffect(() => {
+    const getProfiles = async () => {
+      const userId = localStorage.getItem("userId");
+      try {
+        const docRef = doc(db, "users", userId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userProfiles = docSnap.data().profiles;
+          userProfiles.map((prof) => dispatch(addProfile(prof)));
+        }
+      } catch (e) {
+        console.log("error fetching doc", e);
+      }
+    };
+    getProfiles();
+  }, [dispatch]);
+
   const handleAddProfile = () => {
     dispatch(showAddProfile(true));
   };
