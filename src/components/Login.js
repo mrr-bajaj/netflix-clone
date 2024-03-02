@@ -14,6 +14,19 @@ import { addUser } from "../utils/userSlice";
 import { BG_URL, USER_AVATARS } from "../utils/constants";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 
+export const getUser = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    return querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      email: doc.data().email,
+      profiles: doc.data().profiles,
+    }));
+  } catch (e) {
+    console.error("error fetching documents", e);
+  }
+};
+
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -30,82 +43,59 @@ const Login = () => {
       console.error("Error adding document: ", e);
     }
   };
-  const getUser = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      return querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        email: doc.data().email,
-      }));
-    } catch (e) {
-      console.error("error fetching documents", e);
-    }
-  };
-  const handleButtonClick = () => {
-    const userEmail = email.current.value;
-    const userPassword = password.current.value;
+
+  const handleButtonClick = async () => {
+    const userEmail = email.current?.value;
+    const userPassword = password.current?.value;
+    const userName = name.current?.value;
     const message = checkValidData(userEmail, userPassword);
     setErrorMessage(message);
     if (message) return;
-    if (!isSignInForm) {
-      createUserWithEmailAndPassword(auth, userEmail, userPassword)
-        .then((userCredential) => {
-          // Signed up
-          const user = userCredential.user;
-          updateProfile(user, {
-            displayName: name.current.value,
-            photoURL: USER_AVATARS[0],
-          })
-            .then(async () => {
-              const { uid, email, displayName, photoURL } = auth.currentUser;
-              const existingEmails = await getUser();
-              if (!existingEmails.includes(email)) {
-                postUser({ uid, email, displayName, photoURL, profiles: [] });
-              }
-              dispatch(
-                addUser({ uid, email, displayName, photoURL, profiles: [] })
-              );
-            })
-            .catch((error) => {
-              setErrorMessage(error.message);
-            });
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
+    try {
+      if (!isSignInForm) {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          userEmail,
+          userPassword
+        );
+        const user = userCredential.user;
+        await updateProfile(user, {
+          displayName: userName,
+          photoURL: USER_AVATARS[0],
         });
-    } else {
-      signInWithEmailAndPassword(auth, userEmail, userPassword)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
-        });
-    }
-  };
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then(async (d) => {
-        const { uid, email, displayName, photoURL } = d.user;
-        const existingUsers = await getUser();
-        const user = existingUsers.find((user) => user.email === email);
-        if (!user) {
+        const { uid, email, displayName, photoURL } = auth.currentUser;
+        const existingEmails = await getUser();
+        if (!existingEmails.find((user) => user.email === email)) {
           postUser({ uid, email, displayName, photoURL, profiles: [] });
-        } else {
-          localStorage.setItem("userId", user.id);
         }
         dispatch(addUser({ uid, email, displayName, photoURL, profiles: [] }));
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setErrorMessage(errorCode + "-" + errorMessage);
-      });
+      } else {
+        await signInWithEmailAndPassword(auth, userEmail, userPassword);
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setErrorMessage(errorCode + "-" + errorMessage);
+    }
+  };
+  const signInWithGoogle = async () => {
+    try {
+      const {
+        user: { uid, email, displayName, photoURL },
+      } = await signInWithPopup(auth, provider);
+      const existingUsers = await getUser();
+      const user = existingUsers.find((user) => user.email === email);
+      if (!user) {
+        postUser({ uid, email, displayName, photoURL, profiles: [] });
+      } else {
+        localStorage.setItem("userId", user.id);
+      }
+      dispatch(addUser({ uid, email, displayName, photoURL, profiles: [] }));
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setErrorMessage(`${errorCode}-${errorMessage}`);
+    }
   };
   const toggleSignUpForm = () => {
     setIsSignInForm(!isSignInForm);

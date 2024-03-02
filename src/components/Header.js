@@ -7,14 +7,19 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
+import { getUser } from "./Login";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const user = useSelector((store) => store.user);
+
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {})
+      .then(() => {
+        localStorage.clear();
+      })
       .catch((error) => {
         navigate("/error");
       });
@@ -26,19 +31,34 @@ const Header = () => {
   //   dispatch(toggleGptSearchView());
   // };
   // const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
-  const user = useSelector((store) => store.user);
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        const existingUsers = await getUser();
         const { uid, email, displayName, photoURL } = user;
-        dispatch(addUser({ uid, email, displayName, photoURL, profiles: [] }));
+        const userDb = existingUsers.find((user) => user.email === email);
+        if (userDb) {
+          localStorage.setItem("userId", userDb.id);
+          dispatch(
+            addUser({
+              uid,
+              email,
+              displayName,
+              photoURL,
+              profiles: userDb.profiles,
+            })
+          );
+        } else {
+          dispatch(
+            addUser({ uid, email, displayName, photoURL, profiles: [] })
+          );
+        }
         if (location.pathname === "/") navigate("/profiles");
       } else {
         dispatch(removeUser());
         navigate("/");
       }
     });
-    //Unsubscribe when component unmounts
     return () => unsubscribe();
   }, []);
   return (
