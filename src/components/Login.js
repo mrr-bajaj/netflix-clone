@@ -9,8 +9,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
-import { BG_URL, USER_AVATARS } from "../utils/constants";
+import { addUserEmail } from "../utils/userSlice";
+import { BG_URL } from "../utils/constants";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 
 export const getUsers = async () => {
@@ -41,21 +41,16 @@ export const checkAndPostUser = async (email, dispatch, toPost = true) => {
           email,
         });
       } else {
-        dispatch(addUser({ email, profiles: [] }));
+        dispatch(addUserEmail(email));
       }
     } else {
       if (!toPost) {
         localStorage.setItem("userId", existingUser.id);
-        dispatch(
-          addUser({
-            email,
-            profiles: existingUser.profiles,
-          })
-        );
+        dispatch(addUserEmail(email));
       }
     }
     if (toPost) {
-      dispatch(addUser({ email, profiles: [] }));
+      dispatch(addUserEmail(email));
     }
   });
 };
@@ -113,7 +108,7 @@ const Login = () => {
   //     } else {
   //       localStorage.setItem("userId", user.id);
   //     }
-  //     dispatch(addUser({ uid, email, displayName, photoURL, profiles: [] }));
+  //     dispatch(addUserEmail({ uid, email, displayName, photoURL, profiles: [] }));
   //   } catch (error) {
   //     const errorCode = error.code;
   //     const errorMessage = error.message;

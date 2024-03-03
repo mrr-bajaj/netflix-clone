@@ -7,6 +7,7 @@ const UserProfileCard = ({ profileInfo }) => {
     <div
       className="group cursor-pointer mx-6 flex flex-col justify-center items-center"
       onClick={() => {
+        localStorage.setItem("profileId", profileInfo?.id);
         navigate("/browse");
       }}
     >

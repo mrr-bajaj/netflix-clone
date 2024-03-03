@@ -20,15 +20,17 @@ const Profiles = () => {
           const profileRef = collection(db, `users/${userId}/profiles`);
           if (profileRef) {
             const profileSnap = await getDocs(profileRef);
-            profileSnap.docs.map((doc) => dispatch(addProfile(doc.data())));
+            profileSnap.docs.map((doc) =>
+              dispatch(addProfile({ id: doc.id, ...doc.data() }))
+            );
           }
         }
       } catch (e) {
-        console.log("error fetching doc", e);
+        console.error("error fetching doc", e);
       }
     };
     getProfiles();
-  }, [dispatch]);
+  }, []);
 
   const handleAddProfile = () => {
     dispatch(showAddProfile(true));

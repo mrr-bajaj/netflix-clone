@@ -17,9 +17,10 @@ const AddProfile = ({ count }) => {
     try {
       const userId = localStorage.getItem("userId");
       const profilesCollectionRef = collection(db, `users/${userId}/profiles`);
-      await addDoc(profilesCollectionRef, userProfile);
+      const userProfileSnap = await addDoc(profilesCollectionRef, userProfile);
+      dispatch(addProfile({ id: userProfileSnap.id, ...userProfile }));
     } catch (e) {
-      console.log("error updating profile", e);
+      console.error("error updating profile", e);
     }
   };
 
@@ -32,7 +33,6 @@ const AddProfile = ({ count }) => {
       photoURL: img.current.src,
     };
     postProfile(userProfile);
-    dispatch(addProfile(userProfile));
     dispatch(showAddProfile(false));
   };
   return (
