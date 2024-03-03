@@ -1,14 +1,20 @@
 import React from "react";
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { addToMyList } from "./MovieCard";
+import { useDispatch } from "react-redux";
 
 const SimilarVideoCard = ({ videoInfo }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   if (!videoInfo?.backdrop_path) return;
   return (
     <>
-      <div className="shadow-md bg-gray-800 w-[30%] rounded-lg mt-3 m-2 cursor-pointer" onClick={(e)=>{
-        navigate('/watch?v='+ videoInfo?.id)
-      }}>
+      <div
+        className="shadow-md bg-gray-800 w-[30%] rounded-lg mt-3 m-2 cursor-pointer"
+        onClick={(e) => {
+          navigate("/watch?v=" + videoInfo?.id);
+        }}
+      >
         <img
           className="w-full h-[16vh] rounded-t-lg"
           alt="thumbnail"
@@ -23,7 +29,13 @@ const SimilarVideoCard = ({ videoInfo }) => {
             </span>
           </div>
           <div>
-            <button className="bg-gray-200 p-1 group relative rounded-full">
+            <button
+              className="bg-gray-200 p-1 group relative rounded-full"
+              onClick={(e) => {
+                e.stopPropagation();
+                addToMyList(dispatch, videoInfo);
+              }}
+            >
               ➕
               <span className="tooltip-text hidden  group-hover:block absolute z-10 top-[-130%] left-[-180%] w-36 bg-white text-black text-center px-4 font-bold p-1 rounded-md">
                 Add to My List

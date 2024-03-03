@@ -4,6 +4,7 @@ import MovieList from "./MovieList";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
+  const myList = useSelector((store) => store.user.myList);
   return (
     movies && (
       <div className="bg-black text-white">
@@ -31,6 +32,9 @@ const SecondaryContainer = () => {
               title={"Upcoming"}
               movies={movies.upcomingMovies}
             ></MovieList>
+          )}
+          {myList.length > 0 && (
+            <MovieList title={"My List"} movies={myList}></MovieList>
           )}
         </div>
       </div>

@@ -5,6 +5,7 @@ const userSlice = createSlice({
   initialState: {
     email: null,
     profiles: [],
+    myList: [],
   },
   reducers: {
     addUserEmail: (state, action) => {
@@ -14,13 +15,17 @@ const userSlice = createSlice({
       return {
         email: null,
         profiles: [],
+        myList: [],
       };
     },
     addProfile: (state, action) => {
       state.profiles.push(action.payload);
     },
+    addMyList: (state, action) => {
+      state.myList.push(action.payload);
+    },
   },
 });
 
-export const { addUserEmail, removeUser, addProfile } = userSlice.actions;
+export const { addUserEmail, removeUser, addProfile, addMyList } = userSlice.actions;
 export default userSlice.reducer;

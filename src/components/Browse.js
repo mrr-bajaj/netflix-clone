@@ -10,13 +10,15 @@ import Modal from "./Modal";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import useURLChecker from "../hooks/useURLChecker";
+import useMyListMovies from "../hooks/useMyListsMovies";
 
 const Browse = () => {
-  useURLChecker()
+  useURLChecker();
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
   useUpcomingMovies();
+  useMyListMovies();
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   return (
     <div className="relative">

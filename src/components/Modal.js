@@ -6,12 +6,16 @@ import SimilarVideoCard from "./SimilarVideoCard";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { addToMyList } from "./MovieCard";
 
 const Modal = () => {
   const dispatch = useDispatch();
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
+  const modalTrailerInfo = useSelector(
+    (store) => store.movies.modalTrailerInfo
+  );
   const key = useSelector((store) => store.config.path);
   const handleCloseButton = () => {
     window.history.replaceState({}, document.title, window.location.pathname);
@@ -48,7 +52,13 @@ const Modal = () => {
                       <FontAwesomeIcon color="black" icon={faPlay} /> Play
                     </button>
                   </Link>
-                  <button className="bg-gray-200 p-2 m-2 rounded-full">
+                  <button
+                    className="bg-gray-200 p-2 m-2 rounded-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToMyList(dispatch, modalTrailerInfo);
+                    }}
+                  >
                     ➕
                   </button>
                 </div>
