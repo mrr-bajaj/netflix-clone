@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addToMyList } from "./MovieCard";
+import { addToMyList, removeFromMyList } from "./MovieCard";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const SimilarVideoCard = ({ videoInfo }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isPresentInList, setIsPresentInList] = useState(false);
   if (!videoInfo?.backdrop_path) return;
   return (
     <>
@@ -30,13 +33,19 @@ const SimilarVideoCard = ({ videoInfo }) => {
           </div>
           <div>
             <button
-              className="bg-gray-200 p-1 group relative rounded-full"
+              className="bg-black border border-white px-2 py-1 m-1 group relative rounded-full"
               onClick={(e) => {
                 e.stopPropagation();
-                addToMyList(dispatch, videoInfo);
+                isPresentInList
+                  ? removeFromMyList(dispatch, videoInfo, setIsPresentInList)
+                  : addToMyList(dispatch, videoInfo, setIsPresentInList);
               }}
             >
-              ➕
+              {isPresentInList ? (
+                <FontAwesomeIcon icon={faCheck} />
+              ) : (
+                <FontAwesomeIcon icon={faPlus} />
+              )}
               <span className="tooltip-text hidden  group-hover:block absolute z-10 top-[-130%] left-[-180%] w-36 bg-white text-black text-center px-4 font-bold p-1 rounded-md">
                 Add to My List
               </span>

@@ -5,8 +5,14 @@ import useModalVideo from "../hooks/useModalVideo";
 import SimilarVideoCard from "./SimilarVideoCard";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { addToMyList } from "./MovieCard";
+import {
+  faCheck,
+  faPlay,
+  faPlus,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+import { addToMyList, removeFromMyList } from "./MovieCard";
+import { useState } from "react";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -17,6 +23,7 @@ const Modal = () => {
     (store) => store.movies.modalTrailerInfo
   );
   const key = useSelector((store) => store.config.path);
+  const [isPresentInList, setIsPresentInList] = useState(false);
   const handleCloseButton = () => {
     window.history.replaceState({}, document.title, window.location.pathname);
     dispatch(updatePath(null));
@@ -53,21 +60,35 @@ const Modal = () => {
                     </button>
                   </Link>
                   <button
-                    className="bg-gray-200 p-2 m-2 rounded-full"
+                    className="bg-black border border-white px-3 p-2 m-2 rounded-full"
                     onClick={(e) => {
                       e.stopPropagation();
-                      addToMyList(dispatch, modalTrailerInfo);
+                      isPresentInList
+                        ? removeFromMyList(
+                            dispatch,
+                            modalTrailerInfo,
+                            setIsPresentInList
+                          )
+                        : addToMyList(
+                            dispatch,
+                            modalTrailerInfo,
+                            setIsPresentInList
+                          );
                     }}
                   >
-                    ➕
+                    {isPresentInList ? (
+                      <FontAwesomeIcon icon={faCheck} />
+                    ) : (
+                      <FontAwesomeIcon icon={faPlus} />
+                    )}
                   </button>
                 </div>
-                <div className="absolute z-200 bg-white mt-[-60%] rounded-full ml-[95%]">
+                <div className="absolute z-200  mt-[-62%] ml-[94%]">
                   <button
                     onClick={handleCloseButton}
-                    className="text-gray-500 hover:text-gray-800 rounded-full p-1 "
+                    className="bg-black border border-white rounded-full px-3 p-2 "
                   >
-                    ✖
+                    <FontAwesomeIcon icon={faTimes} />
                   </button>
                 </div>
               </div>
