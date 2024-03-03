@@ -3,17 +3,17 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { removeUser } from "../utils/userSlice";
+import { LOGO, SUPPORTED_LANGUAGES, USER_AVATARS } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
-import { getUser } from "./Login";
+import { checkAndPostUser } from "./Login";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const user = useSelector((store) => store.user);
+  const email = useSelector((store) => store.user.email);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -34,25 +34,9 @@ const Header = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const existingUsers = await getUser();
-        const { uid, email, displayName, photoURL } = user;
-        const userDb = existingUsers.find((user) => user.email === email);
-        if (userDb) {
-          localStorage.setItem("userId", userDb.id);
-          dispatch(
-            addUser({
-              uid,
-              email,
-              displayName,
-              photoURL,
-              profiles: userDb.profiles,
-            })
-          );
-        } else {
-          dispatch(
-            addUser({ uid, email, displayName, photoURL, profiles: [] })
-          );
-        }
+        const { email } = user;
+        checkAndPostUser(email, dispatch, false);
+
         if (location.pathname === "/") navigate("/profiles");
       } else {
         dispatch(removeUser());
@@ -64,7 +48,7 @@ const Header = () => {
   return (
     <div className="absolute px-8 w-[100%] py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
       <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo"></img>
-      {user?.email && (
+      {email && (
         <div className="flex justify-between p-2">
           {/* {showGptSearch && (
             <select
@@ -88,7 +72,7 @@ const Header = () => {
             <img
               className="w-12 h-12 m-2"
               alt="userIcon"
-              src={user?.photoURL}
+              src={USER_AVATARS[0]}
             ></img>
             <button onClick={handleSignOut} className="font-bold text-white">
               Sign Out

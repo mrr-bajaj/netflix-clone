@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAddProfile } from "../utils/configSlice";
 import { addProfile } from "../utils/userSlice";
 import { checkProfileName } from "../utils/validate";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 const AddProfile = ({ count }) => {
@@ -16,14 +16,8 @@ const AddProfile = ({ count }) => {
   const postProfile = async (userProfile) => {
     try {
       const userId = localStorage.getItem("userId");
-      const docRef = doc(db, "users", userId);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const updatedProfiles = [...docSnap.data().profiles, userProfile];
-        await updateDoc(docRef, {
-          profiles: updatedProfiles,
-        });
-      }
+      const profilesCollectionRef = collection(db, `users/${userId}/profiles`);
+      await addDoc(profilesCollectionRef, userProfile);
     } catch (e) {
       console.log("error updating profile", e);
     }

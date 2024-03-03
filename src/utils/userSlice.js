@@ -3,21 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    displayName: null,
     email: null,
-    photoURL: null,
-    uid: null,
     profiles: [],
   },
   reducers: {
     addUser: (state, action) => {
-      const { displayName, email, photoURL, uid, profiles } = action.payload;
+      const { email, profiles } = action.payload;
       return {
         ...state,
-        displayName,
         email,
-        photoURL,
-        uid,
         profiles,
       };
       //DOUBT
@@ -29,10 +23,7 @@ const userSlice = createSlice({
     },
     removeUser: (state, action) => {
       return {
-        displayName: null,
         email: null,
-        photoURL: null,
-        uid: null,
         profiles: [],
       };
     },
