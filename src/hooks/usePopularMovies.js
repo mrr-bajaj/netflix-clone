@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const usePopularMovies = () => {
   const dispatch = useDispatch();
-  const popularMovies = useSelector(store => store.movies.popularMovies);
+  const popularMovies = useSelector((store) => store.movies.popularMovies);
   const getPopularMovies = async () => {
     const data = await fetch(
       "https://api.themoviedb.org/3/movie/popular?language=en-US&page=2",

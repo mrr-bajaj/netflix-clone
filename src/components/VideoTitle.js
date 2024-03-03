@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { updatePath } from "../utils/configSlice";
 import { addModalTrailerInfo } from "../utils/moviesSlice";
 
-const VideoTitle = ({movieInfo}) => {
+const VideoTitle = ({ movieInfo }) => {
   const { title, overview, id } = movieInfo;
   const dispatch = useDispatch();
   return (

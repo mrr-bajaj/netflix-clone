@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addModalMovieInfo, addModalVideo, addSimilarVideos } from "../utils/moviesSlice";
+import {
+  addModalMovieInfo,
+  addModalVideo,
+  addSimilarVideos,
+} from "../utils/moviesSlice";
 import { useEffect } from "react";
 
 const useModalVideo = () => {
@@ -17,11 +21,10 @@ const useModalVideo = () => {
     const json = await data.json();
     const filteredData = json.results.filter(
       (video) => video.type === "Trailer"
-      );
-      const videoData = filteredData.length ? filteredData[0] : json.results[0];
+    );
+    const videoData = filteredData.length ? filteredData[0] : json.results[0];
     dispatch(addModalVideo(videoData));
   };
-
 
   const getMovieSimilarInfo = async (jbvValue) => {
     const similarData = await fetch(
@@ -33,7 +36,7 @@ const useModalVideo = () => {
     const similarJson = await similarData.json();
     const filteredSimilarData = similarJson.results.filter(
       (video) => video.original_language === "en"
-      );
+    );
     dispatch(addSimilarVideos(filteredSimilarData));
   };
 
@@ -46,27 +49,37 @@ const useModalVideo = () => {
     );
     const movieJson = await movideData.json();
     const data = await fetch(
-      "https://api.themoviedb.org/3/movie/" + jbvValue + "/credits?language=en-US",
+      "https://api.themoviedb.org/3/movie/" +
+        jbvValue +
+        "/credits?language=en-US",
       API_OPTIONS
     );
     const credits = await data.json();
-    const director = credits.crew.find(member => member.job === 'Director')?.name;
-    const cast = credits.cast.slice(0, 10).map(c => c.name).join(', '); // Get top 10 cast members
-    const writer = credits.crew.find(member => member.job === 'Screenplay')?.name ?? director;
-    const {genres, overview, runtime, spoken_languages, release_date, title } = movieJson
+    const director = credits.crew.find(
+      (member) => member.job === "Director"
+    )?.name;
+    const cast = credits.cast
+      .slice(0, 10)
+      .map((c) => c.name)
+      .join(", "); // Get top 10 cast members
+    const writer =
+      credits.crew.find((member) => member.job === "Screenplay")?.name ??
+      director;
+    const { genres, overview, runtime, spoken_languages, release_date, title } =
+      movieJson;
     const movieInfo = {
-      genres: genres.map(genre => genre.name).join(', '),
-      release_year: release_date.split('-')[0],
+      genres: genres.map((genre) => genre.name).join(", "),
+      release_year: release_date.split("-")[0],
       description: overview,
-      languages: spoken_languages.map(lang => lang.name).join(', '),
-      runtime: `${Math.floor(runtime/60)}h ${runtime%60}m`,
+      languages: spoken_languages.map((lang) => lang.name).join(", "),
+      runtime: `${Math.floor(runtime / 60)}h ${runtime % 60}m`,
       cast,
       writer,
       director,
-      title
-    }
+      title,
+    };
     dispatch(addModalMovieInfo(movieInfo));
-  }
+  };
 
   const getModalVideo = async (jbvValue) => {
     getMovieVideosInfo(jbvValue);
