@@ -11,7 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { BG_URL, USER_AVATARS } from "../utils/constants";
-import { addDoc, collection, doc, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
 export const getUsers = async () => {
   try {

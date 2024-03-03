@@ -4,7 +4,7 @@ import { showAddProfile } from "../utils/configSlice";
 import Header from "./Header";
 import UserProfileCard from "./UserProfileCard";
 import { db } from "../utils/firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { addProfile } from "../utils/userSlice";
 import { useEffect } from "react";
 
@@ -20,11 +20,8 @@ const Profiles = () => {
           const profileRef = collection(db, `users/${userId}/profiles`);
           if (profileRef) {
             const profileSnap = await getDocs(profileRef);
-            profileSnap.docs.map((doc) => {
-              dispatch(addProfile(doc.data()));
-            });
+            profileSnap.docs.map((doc) => dispatch(addProfile(doc.data())));
           }
-          // }
         }
       } catch (e) {
         console.log("error fetching doc", e);
