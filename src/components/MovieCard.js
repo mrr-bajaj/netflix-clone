@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import {
@@ -56,7 +56,6 @@ const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
   const dispatch = useDispatch();
   const [isMyList, setIsMyList] = useState(false);
   const [isMoreInfo, setIsMoreInfo] = useState(false);
-  const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   return (
     <div className="text-sm">
       <div className="flex justify-between p-1 ">
@@ -125,7 +124,7 @@ const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
         <div className="p-1">
           <span className="font-bold text-green-600">95% Match</span>{" "}
           <span className="border border-white px-1 m-1">A</span>
-          <span className="m-1">{modalMovieInfo?.runtime}</span>
+          <span className="m-1">2h 35m</span>
           <span className="border border-white px-1 m-1">HD</span>
         </div>
         <div>
@@ -140,14 +139,19 @@ const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
   );
 };
 
-const MovieCard = ({ movieInfo }) => {
+const MovieCard = ({ movieInfo,itemsPerScreen }) => {
   const myList = useSelector((store) => store.user.myList);
   const [isPresentInList, setIsPresentInList] = useState(false);
+  const [widthPer, setWidthPer] = useState(100 / itemsPerScreen);
+  useEffect(() => {
+    let wid = Math.floor(100 / itemsPerScreen);
+    setWidthPer(wid);
+  }, [itemsPerScreen]);
 
   if (!movieInfo) return null;
   return (
     <div
-      className="w-36 md:w-80 group pr-4 hover:z-250 hover:scale-150 "
+      className={`aspect-video mx-1 flex-grow-0 group hover:scale-150 flex-shrink-0 flex flex-col w-[${widthPer}%] max-w-[${widthPer}]`}
       onMouseEnter={() => {
         setIsPresentInList(myList.some((list) => list.id === movieInfo?.id));
       }}
