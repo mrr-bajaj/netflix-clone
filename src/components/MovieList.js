@@ -70,11 +70,12 @@ const MovieList = ({ title, movies }) => {
             100 * sliderIndex
           }%]`}
         >
-          {movies.map((movie) => (
+          {movies.map((movie, movieIndex) => (
             <MovieCard
               key={movie.id}
               movieInfo={movie}
               itemsPerScreen={itemsPerScreen}
+              movieIndex={movieIndex}
             ></MovieCard>
           ))}
         </div>
