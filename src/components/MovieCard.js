@@ -52,15 +52,102 @@ const postToMyList = async (dispatch, movieInfo, setIsPresentInList) => {
   dispatch(addMyList(movieInfo));
 };
 
-const MovieCard = ({ movieInfo }) => {
+const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
   const dispatch = useDispatch();
+  const [isMyList, setIsMyList] = useState(false);
+  const [isMoreInfo, setIsMoreInfo] = useState(false);
+  const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
+  return (
+    <div className="text-sm">
+      <div className="flex justify-between p-1 ">
+        <div>
+          <Link to={"/watch?v=" + movieInfo?.id}>
+            <button className="bg-white m-1 pr-2 pl-3 py-1 rounded-full">
+              <FontAwesomeIcon color="black" icon={faPlay} />
+            </button>
+          </Link>
+          <button
+            onMouseEnter={() => {
+              setIsMyList(true);
+            }}
+            onMouseLeave={() => {
+              setIsMyList(false);
+            }}
+            onClick={() => {
+              isPresentInList
+                ? removeFromMyList(dispatch, movieInfo, setIsPresentInList)
+                : addToMyList(dispatch, movieInfo, setIsPresentInList);
+            }}
+            className="bg-black border border-white px-2 py-1 m-1 rounded-full  relative"
+          >
+            {isPresentInList ? (
+              <FontAwesomeIcon icon={faCheck} />
+            ) : (
+              <FontAwesomeIcon icon={faPlus} />
+            )}
+            <span
+              className={`tooltip-text ${
+                isMyList ? "block" : "hidden"
+              }  absolute z-10 top-[-130%] left-[-180%] w-52 bg-white text-black text-center px-4 font-bold p-1 rounded-md`}
+            >
+              {isPresentInList ? "Remove from My List" : "Add to My List"}
+            </span>
+          </button>
+        </div>
+        <div>
+          <Link to={"?jbv=" + movieInfo?.id}>
+            <button
+              className="bg-white p-1 px-2 m-1 rounded-full group relative"
+              onMouseEnter={() => {
+                setIsMoreInfo(true);
+              }}
+              onMouseLeave={() => {
+                setIsMoreInfo(false);
+              }}
+              onClick={() => {
+                dispatch(addModalTrailerInfo(movieInfo));
+                dispatch(updatePath(movieInfo?.id));
+              }}
+            >
+              <FontAwesomeIcon color="black" icon={faChevronDown} />
+              <span
+                className={`tooltip-text ${
+                  isMoreInfo ? "block" : "hidden"
+                } absolute z-10 top-[-130%] left-[-150%] w-36 bg-white text-black text-center px-4 font-bold p-1 rounded-md`}
+              >
+                More Info
+              </span>
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div>
+        <div className="p-1">
+          <span className="font-bold text-green-600">95% Match</span>{" "}
+          <span className="border border-white px-1 m-1">A</span>
+          <span className="m-1">{modalMovieInfo?.runtime}</span>
+          <span className="border border-white px-1 m-1">HD</span>
+        </div>
+        <div>
+          <ul className="flex list-disc">
+            <li className="list-none mr-3">Drama</li>
+            <li className="mx-3">Thriller</li>
+            <li className="mx-3">Crime</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MovieCard = ({ movieInfo }) => {
   const myList = useSelector((store) => store.user.myList);
   const [isPresentInList, setIsPresentInList] = useState(false);
 
   if (!movieInfo) return null;
   return (
     <div
-      className="w-36 md:w-80 group pr-4"
+      className="w-36 md:w-80 group pr-4 hover:z-250 hover:scale-150 "
       onMouseEnter={() => {
         setIsPresentInList(myList.some((list) => list.id === movieInfo?.id));
       }}
@@ -71,48 +158,11 @@ const MovieCard = ({ movieInfo }) => {
         alt="Movie Card"
       ></img>
       <div className="hidden group-hover:block">
-        <div className="flex justify-between p-1 ">
-          <div>
-            <Link to={"/watch?v=" + movieInfo?.id}>
-              <button className="bg-white m-1 pr-2 pl-3 py-1 rounded-full">
-                <FontAwesomeIcon color="black" icon={faPlay} />
-              </button>
-            </Link>
-            <button
-              onClick={() => {
-                isPresentInList
-                  ? removeFromMyList(dispatch, movieInfo, setIsPresentInList)
-                  : addToMyList(dispatch, movieInfo, setIsPresentInList);
-              }}
-              className="bg-black border border-white px-2 py-1 m-1 rounded-full group  relative"
-            >
-              {isPresentInList ? (
-                <FontAwesomeIcon icon={faCheck} />
-              ) : (
-                <FontAwesomeIcon icon={faPlus} />
-              )}
-              <span className="tooltip-text hidden  group-hover:block absolute z-10 top-[-130%] left-[-180%] w-52 bg-white text-black text-center px-4 font-bold p-1 rounded-md">
-                {isPresentInList ? "Remove from My List" : "Add to My List"}
-              </span>
-            </button>
-          </div>
-          <div>
-            <Link to={"?jbv=" + movieInfo?.id}>
-              <button
-                className="bg-white p-1 px-2 m-1 rounded-full group relative"
-                onClick={() => {
-                  dispatch(addModalTrailerInfo(movieInfo));
-                  dispatch(updatePath(movieInfo?.id));
-                }}
-              >
-                <FontAwesomeIcon color="black" icon={faChevronDown} />
-                <span className="tooltip-text hidden  group-hover:block absolute z-10 top-[-130%] left-[-150%] w-36 bg-white text-black text-center px-4 font-bold p-1 rounded-md">
-                  More Info
-                </span>
-              </button>
-            </Link>
-          </div>
-        </div>
+        <MovieCardInfo
+          movieInfo={movieInfo}
+          isPresentInList={isPresentInList}
+          setIsPresentInList={setIsPresentInList}
+        ></MovieCardInfo>
       </div>
     </div>
   );
