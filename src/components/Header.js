@@ -67,7 +67,7 @@ const Header = () => {
     <div className="absolute px-8 w-[100%] py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
       <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo"></img>
       {email && (
-        <div className="flex justify-between p-2">
+        <div className="md:flex justify-between p-2">
           {/* {showGptSearch && (
             <select
               className="m-2 p-2 bg-gray-600 text-white"
@@ -86,7 +86,7 @@ const Header = () => {
           >
             {showGptSearch ? "Home" : "GPT Search"}
           </button> */}
-          <div className="flex flex-col">
+          <div className="hidden md:flex md:flex-col">
             <button
               className="px-5 text-center inline-flex items-center"
               onMouseEnter={() => {

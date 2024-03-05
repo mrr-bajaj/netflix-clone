@@ -36,7 +36,7 @@ const AddProfile = ({ count }) => {
     dispatch(showAddProfile(false));
   };
   return (
-    <div className="w-[30vw]">
+    <div className="md:w-[30vw] p-4 md:p-0">
       <div className="text-5xl">Add Profile</div>
       <div className="my-6">
         Add a profile for another person watching Netflix.
@@ -52,7 +52,7 @@ const AddProfile = ({ count }) => {
         <div className="flex flex-col ">
           <input
             ref={name}
-            className={`h-4 p-4 px-2 w-72 mx-4 mt-8 text-black ${
+            className={`h-4 p-4 px-2 md:w-72 mx-4 mt-8 text-black ${
               errorMessage ? "border-2 border-red-600" : ""
             }`}
             placeholder="Name"
