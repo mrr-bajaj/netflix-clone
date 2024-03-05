@@ -11,7 +11,7 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_VERCEL_FIREBASE_API,
   authDomain: process.env.REACT_APP_VERCEL_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
+  projectId: process.env.REACT_APP_VERCEL_PROJECT_ID,
   storageBucket: process.env.REACT_APP_VERCEL_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_VERCEL_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_VERCEL_APP_ID,
