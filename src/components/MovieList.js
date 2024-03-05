@@ -45,7 +45,7 @@ const MovieList = ({ title, movies }) => {
         <div className="progress-bar flex gap-1">
           {progressBarItems.map((data, index) => (
             <div
-            key={index}
+              key={index}
               className={`progress-item min-w-6 ${
                 index === sliderIndex ? "opacity-90" : " opacity-50"
               } bg-white h-2 flex-shrink-0 flex-grow-0 basis-6`}

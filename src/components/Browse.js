@@ -1,8 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
-import MainContainer from "./MainContainer";
-import SecondaryContainer from "./SecondaryContainer";
 import usePopularMovies from "../hooks/usePopularMovies";
 import GptSearchPage from "./GptSearchPage";
 import { useSelector } from "react-redux";
@@ -12,6 +10,9 @@ import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import useURLChecker from "../hooks/useURLChecker";
 import useMyListMovies from "../hooks/useMyListsMovies";
 import useSetProfileId from "../hooks/useSetProfileId";
+import DesktopView from "./DesktopView";
+import MobileView from "./MobileView";
+import MobileModal from "./MobileModal";
 
 const Browse = () => {
   useURLChecker();
@@ -29,11 +30,16 @@ const Browse = () => {
         <GptSearchPage></GptSearchPage>
       ) : (
         <> */}
-      <MainContainer></MainContainer>
-      <SecondaryContainer></SecondaryContainer>
+      <DesktopView></DesktopView>
+      <MobileView></MobileView>
       {/* </>
       )} */}
-      <Modal></Modal>
+      <div className="hidden md:block">
+        <Modal></Modal>
+      </div>
+      <div className="md:hidden">
+        <MobileModal></MobileModal>
+      </div>
     </div>
   );
 };
