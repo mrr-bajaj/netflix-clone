@@ -21,18 +21,18 @@ const Browse = () => {
   useTopRatedMovies();
   useUpcomingMovies();
   useMyListMovies();
-  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
+  // const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   return (
     <div className="relative">
       <Header></Header>
-      {showGptSearch ? (
+      {/* {showGptSearch ? (
         <GptSearchPage></GptSearchPage>
       ) : (
-        <>
-          <MainContainer></MainContainer>
-          <SecondaryContainer></SecondaryContainer>
-        </>
-      )}
+        <> */}
+      <MainContainer></MainContainer>
+      <SecondaryContainer></SecondaryContainer>
+      {/* </>
+      )} */}
       <Modal></Modal>
     </div>
   );
