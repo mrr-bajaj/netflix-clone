@@ -9,6 +9,9 @@ const SecondaryContainer = () => {
     movies && (
       <div className="bg-black text-white">
         <div className="mt-0 md:-mt-72 pl-3 md:pl-6 relative z-20">
+          {myList.length > 0 && (
+            <MovieList title={"My List"} movies={myList}></MovieList>
+          )}
           {movies.nowPlayingMovies && (
             <MovieList
               title={"Now Playing"}
@@ -32,9 +35,6 @@ const SecondaryContainer = () => {
               title={"Upcoming"}
               movies={movies.upcomingMovies}
             ></MovieList>
-          )}
-          {myList.length > 0 && (
-            <MovieList title={"My List"} movies={myList}></MovieList>
           )}
         </div>
       </div>

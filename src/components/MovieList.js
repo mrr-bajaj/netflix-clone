@@ -45,6 +45,7 @@ const MovieList = ({ title, movies }) => {
         <div className="progress-bar flex gap-1">
           {progressBarItems.map((data, index) => (
             <div
+            key={index}
               className={`progress-item min-w-6 ${
                 index === sliderIndex ? "opacity-90" : " opacity-50"
               } bg-white h-2 flex-shrink-0 flex-grow-0 basis-6`}
@@ -55,12 +56,12 @@ const MovieList = ({ title, movies }) => {
       <div className="container flex overflow-visible overflow-x-clip min-w-[100%]">
         {sliderIndex !== 0 && (
           <button
-            class="handle  left-handle ra flex-grow-0 flex-shrink-0 z-10 basis-1 w-12 bg-black opacity-25  cursor-pointer flex justify-center items-center text-8xl hover:opacity-50 rounded-2xl rounded-tl-none rounded-bl-none"
+            className="handle  left-handle ra flex-grow-0 flex-shrink-0 z-10 basis-1 w-12 bg-black opacity-25  cursor-pointer flex justify-center items-center text-8xl hover:opacity-50 rounded-2xl rounded-tl-none rounded-bl-none"
             onClick={() => {
               handleButtonClick("left");
             }}
           >
-            <div class="text transition-transform duration-150 ease-in-out hover:scale-125">
+            <div className="text transition-transform duration-150 ease-in-out hover:scale-125">
               &#8249;
             </div>
           </button>
@@ -81,12 +82,12 @@ const MovieList = ({ title, movies }) => {
         </div>
         {progressBarItemCount !== 0 && (
           <button
-            class="handle right-handle flex-grow-0 flex-shrink-0 z-10 basis-1 w-12 bg-black opacity-25  cursor-pointer flex justify-center items-center text-8xl hover:opacity-50 rounded-2xl rounded-tr-none rounded-br-none"
+            className="handle right-handle flex-grow-0 flex-shrink-0 z-10 basis-1 w-12 bg-black opacity-25  cursor-pointer flex justify-center items-center text-8xl hover:opacity-50 rounded-2xl rounded-tr-none rounded-br-none"
             onClick={() => {
               handleButtonClick("right");
             }}
           >
-            <div class="text transition-transform duration-150 ease-in-out hover:scale-125">
+            <div className="text transition-transform duration-150 ease-in-out hover:scale-125">
               &#8250;
             </div>
           </button>
