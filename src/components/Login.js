@@ -46,6 +46,8 @@ export const checkAndPostUser = async (email, dispatch, toPost = true) => {
     } else {
       if (!toPost) {
         localStorage.setItem("userId", existingUser.id);
+        //TOCHCECK
+        // console.log(2)
         dispatch(addUserEmail(email));
       }
     }

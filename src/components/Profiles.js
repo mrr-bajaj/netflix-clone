@@ -3,38 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAddProfile } from "../utils/configSlice";
 import Header from "./Header";
 import UserProfileCard from "./UserProfileCard";
-import { db } from "../utils/firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { addProfile } from "../utils/userSlice";
-import { useEffect } from "react";
+import useRemoveContext from "../hooks/useRemoveContext";
 
 const Profiles = () => {
   const dispatch = useDispatch();
   const showProfile = useSelector((store) => store.config.showProfile);
   const profiles = useSelector((store) => store.user.profiles);
-  useEffect(() => {
-    const getProfiles = async () => {
-      const userId = localStorage.getItem("userId");
-      try {
-        if (userId) {
-          const profileRef = collection(db, `users/${userId}/profiles`);
-          if (profileRef) {
-            const profileSnap = await getDocs(profileRef);
-            profileSnap.docs.map((doc) =>
-              dispatch(addProfile({ id: doc.id, ...doc.data() }))
-            );
-          }
-        }
-      } catch (e) {
-        console.error("error fetching doc", e);
-      }
-    };
-    getProfiles();
-  }, []);
 
   const handleAddProfile = () => {
     dispatch(showAddProfile(true));
   };
+
+  useRemoveContext();
 
   return (
     <>

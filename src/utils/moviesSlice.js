@@ -48,6 +48,20 @@ const moviesSlice = createSlice({
     addModalTrailerInfo: (state, action) => {
       state.modalTrailerInfo = action.payload;
     },
+    clearMovies: (state, action) => {
+      return {
+        nowPlayingMovies: null,
+        popularMovies: null,
+        topRatedMovies: null,
+        upcomingMovies: null,
+        trailerVideo: null,
+        modalVideo: null,
+        similarVideos: null,
+        modalMovieInfo: null,
+        watchVideo: null,
+        modalTrailerInfo: null,
+      };
+    },
   },
 });
 
@@ -63,5 +77,6 @@ export const {
   addUpcomingMovies,
   addWatchVideo,
   addModalTrailerInfo,
+  clearMovies,
 } = moviesSlice.actions;
 export default moviesSlice.reducer;

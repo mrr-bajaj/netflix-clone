@@ -11,9 +11,11 @@ import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import useURLChecker from "../hooks/useURLChecker";
 import useMyListMovies from "../hooks/useMyListsMovies";
+import useSetProfileId from "../hooks/useSetProfileId";
 
 const Browse = () => {
   useURLChecker();
+  useSetProfileId();
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();

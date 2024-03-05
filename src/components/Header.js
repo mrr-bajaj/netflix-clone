@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth, db } from "../utils/firebase";
+import { auth } from "../utils/firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addProfileId, removeUser } from "../utils/userSlice";
+import {
+  addActiveProfileId,
+  clearMyList,
+  removeActiveProfileId,
+  removeUser,
+} from "../utils/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES, USER_AVATARS } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 import { changeLanguage } from "../utils/configSlice";
 import { checkAndPostUser } from "./Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faUserCog } from "@fortawesome/free-solid-svg-icons";
-import { collection, getDocs } from "firebase/firestore";
+import useGetProfiles from "../hooks/useGetProfiles";
+import { clearMovies } from "../utils/moviesSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,25 +24,12 @@ const Header = () => {
   const location = useLocation();
   const email = useSelector((store) => store.user.email);
   const [showDropdown, setShowDropown] = useState(false);
-  // const userId = localStorage.getItem("userId");
-  // const profileId = localStorage.getItem("profileId");
-  // const userId = useSelector((store) => store.user.userId);
-  // const profileId = useSelector((store) => store.user.profileId);
-  const [userProfiles, setUserProfiles] = useState([]);
-  // const getUserProfiles = async () => {
-  //   if (userId) {
-  //     const profileRef = collection(db, `users/${userId}/profiles`);
-  //     console.log(profileId)
-  //     const profileSnap = await getDocs(profileRef);
-  //     const profiles = profileSnap.docs
-  //       .filter((profile) => profile.id !== profileId)
-  //       .map((profile) => {
-  //         return { id: profile.id, ...profile.data() };
-  //       });
-  //     console.log(profiles);
-  //     setUserProfiles(profiles);
-  //   }
-  // };
+  const profiles = useSelector((store) => store.user.profiles);
+  const activeProfileId = useSelector((store) => store.user.activeProfileId);
+  const userProfiles = profiles.filter(
+    (profile) => profile.id !== activeProfileId
+  );
+  useGetProfiles();
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -53,17 +46,18 @@ const Header = () => {
   //   dispatch(toggleGptSearchView());
   // };
   // const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
-  // useEffect(() => {
-  //   getUserProfiles();
-  // }, [userId, profileId]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const { email } = user;
+        //TOCHECK
+        // console.log("from header");
         checkAndPostUser(email, dispatch, false);
         if (location.pathname === "/") navigate("/profiles");
       } else {
         dispatch(removeUser());
+        dispatch(clearMovies());
+        dispatch(clearMyList());
         navigate("/");
       }
     });
@@ -125,37 +119,40 @@ const Header = () => {
               }}
             >
               <ul className="p-2 text-sm ">
-                {userProfiles.map((profile) => (
+                {activeProfileId &&
+                  userProfiles.map((profile) => (
+                    <li
+                      key={profile.id}
+                      className="hover:underline flex items-center my-3 hover:cursor-pointer"
+                      onClick={() => {
+                        localStorage.setItem("profileId", profile.id);
+                        dispatch(addActiveProfileId(profile.id));
+                      }}
+                    >
+                      <img
+                        className="w-6 h-6 mx-1"
+                        alt="userIcon"
+                        src={profile?.photoURL}
+                      ></img>
+                      {profile?.name}
+                    </li>
+                  ))}
+                {activeProfileId && (
                   <li
-                    key={profile.id}
-                    className="hover:underline flex items-center my-3 hover:cursor-pointer"
+                    className="hover:underline m-2 hover:cursor-pointer"
                     onClick={() => {
-                      // localStorage.setItem("profileId", profile.id);
-                      // dispatch(addProfileId(profile.id));
-                      // navigate("/browse");
+                      localStorage.removeItem("profileId");
+                      dispatch(removeActiveProfileId());
+                      navigate("/profiles");
                     }}
                   >
-                    <img
-                      className="w-6 h-6 mx-1"
-                      alt="userIcon"
-                      src={profile?.photoURL}
-                    ></img>
-                    {profile?.name}
+                    <FontAwesomeIcon icon={faUserCog} className="mx-1" />
+                    <span>Manage Profile</span>
                   </li>
-                ))}
-                <li
-                  className="hover:underline m-2 hover:cursor-pointer"
-                  onClick={() => {
-                    // localStorage.removeItem("profileId");
-                    // navigate("/profiles");
-                  }}
-                >
-                  <FontAwesomeIcon icon={faUserCog} className="mx-1" />
-                  <span>Manage Profile</span>
-                </li>
+                )}
               </ul>
               <div
-                className="p-2 mx-1 text-sm hover:underline hover:cursor-pointer"
+                className="p-2 mx-1 text-sm hover:underline cursor-pointer"
                 onClick={handleSignOut}
               >
                 Sign Out

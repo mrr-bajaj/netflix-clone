@@ -1,24 +1,24 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase";
-import { addMyList } from "../utils/userSlice";
+import { addAllMyList } from "../utils/userSlice";
 
 const useMyListMovies = () => {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
-  const profileId = localStorage.getItem("profileId");
+  const activeProfileId = useSelector((store) => store.user.activeProfileId);
   const getMyListMovies = async () => {
     const querySnap = await getDocs(
-      collection(db, `users/${userId}/profiles/${profileId}/myList`)
+      collection(db, `users/${userId}/profiles/${activeProfileId}/myList`)
     );
 
     const myListMovies = querySnap.docs.map((doc) => doc.data());
-    myListMovies.map((movie) => dispatch(addMyList(movie)));
+    dispatch(addAllMyList(myListMovies));
   };
   useEffect(() => {
-    getMyListMovies();
-  }, []);
+    if (activeProfileId) getMyListMovies();
+  }, [activeProfileId]);
 };
 
 export default useMyListMovies;
