@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const SimilarMobileVideoCard = ({ key, videoInfo }) => {
+const SimilarMobileVideoCard = ({ videoInfo }) => {
   const navigate = useNavigate();
   if (!videoInfo?.backdrop_path) return;
   return (

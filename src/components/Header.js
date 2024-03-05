@@ -64,7 +64,7 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="absolute px-8 w-[100%] py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
+    <div className="absolute px-8 w-[100%] py-2 bg-gradient-to-b from-black z-10 flex md:flex-row justify-between">
       <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo"></img>
       {email && (
         <div className="md:flex justify-between p-2">
@@ -159,6 +159,72 @@ const Header = () => {
               </div>
             </div>
           </div>
+          {activeProfileId && (
+            <div className="md:hidden">
+              <button
+                className="px-2 text-center inline-flex items-center"
+                onClick={() => {
+                  setShowDropown(!showDropdown);
+                }}
+              >
+                <img
+                  className="w-12 h-12 m-2"
+                  alt="userIcon"
+                  src={USER_AVATARS[0]}
+                ></img>
+                <span>
+                  <FontAwesomeIcon color="white" icon={faChevronDown} />
+                </span>
+              </button>
+
+              <div
+                className={`z-10 absolute top-20 right-12 ${
+                  showDropdown ? "" : "hidden"
+                }
+               bg-black divide-y divide-gray-700 text-white rounded-lg shadow w-40`}
+              >
+                <ul className="p-2 text-sm ">
+                  {activeProfileId &&
+                    userProfiles.map((profile) => (
+                      <li
+                        key={profile.id}
+                        className="hover:underline flex items-center my-3 hover:cursor-pointer"
+                        onClick={() => {
+                          localStorage.setItem("profileId", profile.id);
+                          dispatch(addActiveProfileId(profile.id));
+                        }}
+                      >
+                        <img
+                          className="w-6 h-6 mx-1"
+                          alt="userIcon"
+                          src={profile?.photoURL}
+                        ></img>
+                        {profile?.name}
+                      </li>
+                    ))}
+                  {activeProfileId && (
+                    <li
+                      className="hover:underline m-2 hover:cursor-pointer"
+                      onClick={() => {
+                        localStorage.removeItem("profileId");
+                        dispatch(removeActiveProfileId());
+                        navigate("/profiles");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faUserCog} className="mx-1" />
+                      <span>Manage Profile</span>
+                    </li>
+                  )}
+                </ul>
+                <div
+                  className="p-2 mx-1 text-sm hover:underline cursor-pointer"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

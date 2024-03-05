@@ -8,7 +8,7 @@ const MobileMovieCard = ({ movieInfo }) => {
   const dispatch = useDispatch();
   return (
     <div
-      className="min-w-32 mx-2"
+      className="min-w-32 max-w-32 mx-2"
       onClick={() => {
         dispatch(updatePath(movieInfo.id));
       }}
