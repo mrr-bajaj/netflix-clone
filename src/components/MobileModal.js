@@ -109,7 +109,7 @@ const MobileModal = () => {
             <div className="m-2">
               <div className="text-xl p-1">More Like This</div>
               {similarVideos && (
-                <div className="flex flex-wrap justify-start">
+                <div className="flex flex-wrap justify-between">
                   {similarVideos.map((video) => (
                     <SimilarMobileVideoCard
                       key={video.id}

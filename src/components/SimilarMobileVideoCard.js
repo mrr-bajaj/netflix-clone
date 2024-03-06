@@ -6,7 +6,7 @@ const SimilarMobileVideoCard = ({ videoInfo }) => {
   return (
     <>
       <div
-        className=" w-[29%] m-2"
+        className=" w-[27%]  m-2"
         onClick={() => {
           navigate("/watch?v=" + videoInfo?.id);
         }}
