@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const SimilarMobileVideoCard = ({ videoInfo }) => {
   const navigate = useNavigate();
@@ -11,11 +13,12 @@ const SimilarMobileVideoCard = ({ videoInfo }) => {
           navigate("/watch?v=" + videoInfo?.id);
         }}
       >
-        <img
+        <LazyLoadImage
           className="w-full h-[16vh] rounded-md"
           alt="thumbnail"
           src={"https://image.tmdb.org/t/p/w154/" + videoInfo?.poster_path}
-        ></img>
+          effect="blur"
+        ></LazyLoadImage>
       </div>
     </>
   );

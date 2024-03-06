@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import useListUtils from "../hooks/useListUtils";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const SimilarVideoCard = ({ videoInfo }) => {
   const navigate = useNavigate();
@@ -19,11 +21,12 @@ const SimilarVideoCard = ({ videoInfo }) => {
           navigate("/watch?v=" + videoInfo?.id);
         }}
       >
-        <img
+        <LazyLoadImage
           className="w-full h-[16vh] rounded-t-lg"
           alt="thumbnail"
           src={"https://image.tmdb.org/t/p/w154/" + videoInfo?.backdrop_path}
-        ></img>
+          effect="blur"
+        ></LazyLoadImage>
         <div className="m-1 px-1 mt-4 flex justify-between items-center">
           <div>
             <span className="border border-white px-1 m-1">A</span>

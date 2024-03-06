@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 import { useSelector } from "react-redux";
 import MovieCardInfo from "./MovieCardInfo";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const MovieCard = ({ movieInfo, itemsPerScreen, movieIndex }) => {
   const myList = useSelector((store) => store.user.myList);
@@ -22,11 +24,12 @@ const MovieCard = ({ movieInfo, itemsPerScreen, movieIndex }) => {
         setIsPresentInList(myList.some((list) => list.id === movieInfo?.id));
       }}
     >
-      <img
+      <LazyLoadImage
         className="rounded-md"
         src={IMG_CDN_URL + movieInfo?.backdrop_path}
         alt="Movie Card"
-      ></img>
+        effect="blur"
+      ></LazyLoadImage>
       <div className="hidden group-hover:block">
         <MovieCardInfo
           movieInfo={movieInfo}
