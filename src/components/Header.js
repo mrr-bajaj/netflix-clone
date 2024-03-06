@@ -25,6 +25,7 @@ const Header = () => {
   const email = useSelector((store) => store.user.email);
   const [showDropdown, setShowDropown] = useState(false);
   const profiles = useSelector((store) => store.user.profiles);
+  const device = useSelector((store) => store.config.device);
   const activeProfileId = useSelector((store) => store.user.activeProfileId);
   const userProfiles = profiles.filter(
     (profile) => profile.id !== activeProfileId
@@ -86,81 +87,83 @@ const Header = () => {
           >
             {showGptSearch ? "Home" : "GPT Search"}
           </button> */}
-          <div className="hidden md:flex md:flex-col">
-            <button
-              className="px-5 text-center inline-flex items-center"
-              onMouseEnter={() => {
-                setShowDropown(true);
-              }}
-              onMouseLeave={() => {
-                setShowDropown(false);
-              }}
-            >
-              <img
-                className="w-12 h-12 m-2"
-                alt="userIcon"
-                src={USER_AVATARS[0]}
-              ></img>
-              <span>
-                <FontAwesomeIcon color="white" icon={faChevronDown} />
-              </span>
-            </button>
+          {device === "desktop" && (
+            <div className=" md:flex md:flex-col">
+              <button
+                className="px-5 text-center inline-flex items-center"
+                onMouseEnter={() => {
+                  setShowDropown(true);
+                }}
+                onMouseLeave={() => {
+                  setShowDropown(false);
+                }}
+              >
+                <img
+                  className="w-12 h-12 m-2"
+                  alt="userIcon"
+                  src={USER_AVATARS[0]}
+                ></img>
+                <span>
+                  <FontAwesomeIcon color="white" icon={faChevronDown} />
+                </span>
+              </button>
 
-            <div
-              className={`z-10 absolute top-20 right-12 ${
-                showDropdown ? "" : "hidden"
-              }
+              <div
+                className={`z-10 absolute top-20 right-12 ${
+                  showDropdown ? "" : "hidden"
+                }
                bg-black divide-y divide-gray-700 text-white rounded-lg shadow w-40`}
-              onMouseEnter={() => {
-                setShowDropown(true);
-              }}
-              onMouseLeave={() => {
-                setShowDropown(false);
-              }}
-            >
-              <ul className="p-2 text-sm ">
-                {activeProfileId &&
-                  userProfiles.map((profile) => (
+                onMouseEnter={() => {
+                  setShowDropown(true);
+                }}
+                onMouseLeave={() => {
+                  setShowDropown(false);
+                }}
+              >
+                <ul className="p-2 text-sm ">
+                  {activeProfileId &&
+                    userProfiles.map((profile) => (
+                      <li
+                        key={profile.id}
+                        className="hover:underline flex items-center my-3 hover:cursor-pointer"
+                        onClick={() => {
+                          localStorage.setItem("profileId", profile.id);
+                          dispatch(addActiveProfileId(profile.id));
+                        }}
+                      >
+                        <img
+                          className="w-6 h-6 mx-1"
+                          alt="userIcon"
+                          src={profile?.photoURL}
+                        ></img>
+                        {profile?.name}
+                      </li>
+                    ))}
+                  {activeProfileId && (
                     <li
-                      key={profile.id}
-                      className="hover:underline flex items-center my-3 hover:cursor-pointer"
+                      className="hover:underline m-2 hover:cursor-pointer"
                       onClick={() => {
-                        localStorage.setItem("profileId", profile.id);
-                        dispatch(addActiveProfileId(profile.id));
+                        localStorage.removeItem("profileId");
+                        dispatch(removeActiveProfileId());
+                        navigate("/profiles");
                       }}
                     >
-                      <img
-                        className="w-6 h-6 mx-1"
-                        alt="userIcon"
-                        src={profile?.photoURL}
-                      ></img>
-                      {profile?.name}
+                      <FontAwesomeIcon icon={faUserCog} className="mx-1" />
+                      <span>Manage Profile</span>
                     </li>
-                  ))}
-                {activeProfileId && (
-                  <li
-                    className="hover:underline m-2 hover:cursor-pointer"
-                    onClick={() => {
-                      localStorage.removeItem("profileId");
-                      dispatch(removeActiveProfileId());
-                      navigate("/profiles");
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faUserCog} className="mx-1" />
-                    <span>Manage Profile</span>
-                  </li>
-                )}
-              </ul>
-              <div
-                className="p-2 mx-1 text-sm hover:underline cursor-pointer"
-                onClick={handleSignOut}
-              >
-                Sign Out
+                  )}
+                </ul>
+                <div
+                  className="p-2 mx-1 text-sm hover:underline cursor-pointer"
+                  onClick={handleSignOut}
+                >
+                  Sign Out
+                </div>
               </div>
             </div>
-          </div>
-          {activeProfileId && (
-            <div className="md:hidden">
+          )}
+          {activeProfileId && device === "mobile" && (
+            <div>
               <button
                 className="px-2 text-center inline-flex items-center"
                 onClick={() => {

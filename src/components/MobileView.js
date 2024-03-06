@@ -4,7 +4,7 @@ import MobileSecondaryContainer from "./MobileSecondaryContainer";
 
 const MobileView = () => {
   return (
-    <div className="md:hidden">
+    <div>
       <MobileMainContainer></MobileMainContainer>
       <MobileSecondaryContainer></MobileSecondaryContainer>
     </div>

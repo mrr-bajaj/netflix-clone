@@ -4,7 +4,7 @@ import SecondaryContainer from "./SecondaryContainer";
 
 const DesktopView = () => {
   return (
-    <div className="hidden md:block">
+    <div>
       <MainContainer></MainContainer>
       <SecondaryContainer></SecondaryContainer>
     </div>

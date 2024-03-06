@@ -6,6 +6,7 @@ const configSlice = createSlice({
     lang: "en",
     path: "",
     showProfile: false,
+    device: "",
   },
   reducers: {
     changeLanguage: (state, action) => {
@@ -17,9 +18,12 @@ const configSlice = createSlice({
     showAddProfile: (state, action) => {
       state.showProfile = action.payload;
     },
+    addDevice: (state, action) => {
+      state.device = action.payload;
+    },
   },
 });
 
-export const { changeLanguage, updatePath, showAddProfile } =
+export const { changeLanguage, updatePath, showAddProfile, addDevice } =
   configSlice.actions;
 export default configSlice.reducer;

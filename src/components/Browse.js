@@ -23,6 +23,8 @@ const Browse = () => {
   useTopRatedMovies();
   useUpcomingMovies();
   useMyListMovies();
+
+  const device = useSelector((store) => store.config.device);
   // const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
   return (
     <div className="relative">
@@ -31,17 +33,17 @@ const Browse = () => {
         <GptSearchPage></GptSearchPage>
       ) : (
         <> */}
-      <DesktopView></DesktopView>
-      <MobileView></MobileView>
-      {/* </>
-      )} */}
-      <div className="hidden md:block">
-        <Modal></Modal>
-      </div>
-      <div className="md:hidden">
-        <MobileModal></MobileModal>
-      </div>
-
+      {device === "mobile" ? (
+        <>
+          <MobileView></MobileView>
+          <MobileModal></MobileModal>
+        </>
+      ) : (
+        <>
+          <DesktopView></DesktopView>
+          <Modal></Modal>
+        </>
+      )}
       <Footer></Footer>
     </div>
   );

@@ -3,8 +3,10 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Login";
 import Watch from "./Watch";
 import Profiles from "./Profiles";
+import useDeviceCheck from "../hooks/useDeviceCheck";
 
 const Body = () => {
+  useDeviceCheck();
   const appRouter = createBrowserRouter([
     {
       path: "/",
