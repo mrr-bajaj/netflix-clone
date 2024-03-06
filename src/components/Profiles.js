@@ -57,7 +57,7 @@ const Profiles = () => {
           </div>
         )}
         {showProfile && (
-          <div className={`flex md:justify-center items-center h-[100%]`}>
+          <div className={`flex sm:justify-center items-center h-[100%]`}>
             <AddProfile count={profiles.length}></AddProfile>
           </div>
         )}
