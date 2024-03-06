@@ -42,7 +42,7 @@ const MobileModal = () => {
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               ></iframe>
-              <div className="absolute z-200 mt-[-80%] ml-[3%]">
+              <div className="absolute z-200 mt-[-38vh] ml-[2vw]">
                 <button
                   onClick={handleCloseButton}
                   className="rounded-full p-2 "
@@ -109,13 +109,15 @@ const MobileModal = () => {
             <div className="m-2">
               <div className="text-xl p-1">More Like This</div>
               {similarVideos && (
-                <div className="flex flex-wrap justify-between">
-                  {similarVideos.map((video) => (
-                    <SimilarMobileVideoCard
-                      key={video.id}
-                      videoInfo={video}
-                    ></SimilarMobileVideoCard>
-                  ))}
+                <div className="flex justify-between">
+                  <div className="flex justify-start flex-wrap mx-2">
+                    {similarVideos.map((video) => (
+                      <SimilarMobileVideoCard
+                        key={video.id}
+                        videoInfo={video}
+                      ></SimilarMobileVideoCard>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

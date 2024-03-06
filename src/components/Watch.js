@@ -39,7 +39,7 @@ const Watch = () => {
         allowFullScreen
       ></iframe>
       <div
-        className="fixed top-10 left-10 m-4 z-20 text-white cursor-pointer"
+        className="fixed top-[1vh] left-[1vw] m-4 z-20 text-white cursor-pointer"
         onClick={() => {
           dispatch(addWatchVideo(null));
           if (modalId) {
