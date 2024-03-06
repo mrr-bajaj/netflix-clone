@@ -5,13 +5,14 @@ import { removeModalVideo } from "../utils/moviesSlice";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { addToMyList, removeFromMyList } from "./MovieCard";
 import useMobileModalVideo from "../hooks/useMobileModalVideo";
 import { FaArrowLeft } from "react-icons/fa";
 import SimilarMobileVideoCard from "./SimilarMobileVideoCard";
+import useListUtils from "../hooks/useListUtils";
 
 const MobileModal = () => {
   const dispatch = useDispatch();
+  const { addToMyList, removeFromMyList } = useListUtils();
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
@@ -70,16 +71,8 @@ const MobileModal = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       isPresentInList
-                        ? removeFromMyList(
-                            dispatch,
-                            modalTrailerInfo,
-                            setIsPresentInList
-                          )
-                        : addToMyList(
-                            dispatch,
-                            modalTrailerInfo,
-                            setIsPresentInList
-                          );
+                        ? removeFromMyList(modalTrailerInfo, setIsPresentInList)
+                        : addToMyList(modalTrailerInfo, setIsPresentInList);
                     }}
                   >
                     {isPresentInList ? (

@@ -11,11 +11,12 @@ import {
   faPlus,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { addToMyList, removeFromMyList } from "./MovieCard";
 import { useState } from "react";
+import useListUtils from "../hooks/useListUtils";
 
 const Modal = () => {
   const dispatch = useDispatch();
+  const { removeFromMyList, addToMyList } = useListUtils;
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
@@ -29,7 +30,7 @@ const Modal = () => {
     dispatch(updatePath(null));
     dispatch(removeModalVideo());
   };
-  useModalVideo();
+  useModalVideo(setIsPresentInList);
   return (
     <>
       {modalVideo?.key && (
@@ -64,16 +65,8 @@ const Modal = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       isPresentInList
-                        ? removeFromMyList(
-                            dispatch,
-                            modalTrailerInfo,
-                            setIsPresentInList
-                          )
-                        : addToMyList(
-                            dispatch,
-                            modalTrailerInfo,
-                            setIsPresentInList
-                          );
+                        ? removeFromMyList(modalTrailerInfo, setIsPresentInList)
+                        : addToMyList(modalTrailerInfo, setIsPresentInList);
                     }}
                   >
                     {isPresentInList ? (
@@ -83,7 +76,7 @@ const Modal = () => {
                     )}
                   </button>
                 </div>
-                <div className="absolute z-200  mt-[-62%] ml-[94%]">
+                <div className="absolute z-200  mt-[-59vh] sm:ml-[39vw] md:ml-[41vw] ">
                   <button
                     onClick={handleCloseButton}
                     className="bg-black border border-white rounded-full px-3 p-2 "

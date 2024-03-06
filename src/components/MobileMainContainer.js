@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IMG_CDN_URL } from "../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { addToMyList, removeFromMyList } from "./MovieCard";
+import useListUtils from "../hooks/useListUtils";
 
 const MobileMainContainer = () => {
-  const dispatch = useDispatch();
   const [isPresentInList, setIsPresentInList] = useState();
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
+  const { addToMyList, removeFromMyList } = useListUtils();
   if (!movies) return;
   const mainMovie = movies[0];
   const { id } = mainMovie;
@@ -42,8 +42,8 @@ const MobileMainContainer = () => {
                 className="bg-gray-400 text-white font-bold py-2 mx-2 px-[8vw] text-sm  rounded-sm"
                 onClick={() => {
                   isPresentInList
-                    ? removeFromMyList(dispatch, mainMovie, setIsPresentInList)
-                    : addToMyList(dispatch, mainMovie, setIsPresentInList);
+                    ? removeFromMyList(mainMovie, setIsPresentInList)
+                    : addToMyList(mainMovie, setIsPresentInList);
                 }}
               >
                 {isPresentInList ? (

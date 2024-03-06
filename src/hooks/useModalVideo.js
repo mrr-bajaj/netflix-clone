@@ -7,9 +7,10 @@ import {
 } from "../utils/moviesSlice";
 import { useEffect } from "react";
 
-const useModalVideo = () => {
+const useModalVideo = (setIsPresentInList) => {
   const dispatch = useDispatch();
   const key = useSelector((store) => store.config.path);
+  const myList = useSelector((store) => store.user.myList);
 
   const getMovieVideosInfo = async (jbvValue) => {
     const data = await fetch(
@@ -86,11 +87,14 @@ const useModalVideo = () => {
     getMovieSimilarInfo(jbvValue);
     getMovieInfo(jbvValue);
   };
-
+  const checkIsPresentInList = () => {
+    setIsPresentInList(myList.some((list) => list.id === key));
+  };
   useEffect(() => {
     if (key) {
       document.body.style.overflow = "hidden";
       getModalVideo(key);
+      checkIsPresentInList();
     } // Disable scrolling
     else {
       document.body.style.overflow = ""; // Enable scrolling
