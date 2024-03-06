@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUserEmail } from "../utils/userSlice";
-import { BG_URL } from "../utils/constants";
+import { BG_URL, authErrors } from "../utils/constants";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 
 export const getUsers = async () => {
@@ -93,9 +93,10 @@ const Login = () => {
         await signInWithEmailAndPassword(auth, userEmail, userPassword);
       }
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      setErrorMessage(errorCode + "-" + errorMessage);
+      const errorCode = error.code.split("/")[1];
+      const errorMessage = authErrors[errorCode];
+
+      setErrorMessage(errorMessage);
     }
   };
   // const signInWithGoogle = async () => {

@@ -14,3 +14,11 @@
 12. add to my list
 13. more like this (recommendation) -- done
 14. navbar -- home, my list
+
+
+
+1. error handling on form 
+2. form css
+3. lazy loading images 
+4. shimmer
+5. footer 
