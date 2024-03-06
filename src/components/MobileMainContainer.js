@@ -23,23 +23,23 @@ const MobileMainContainer = () => {
             src={IMG_CDN_URL + mainMovie?.poster_path}
             alt="thumbnail"
           ></img>
-          <div className="absolute text-white bottom-5">
+          <div className="absolute flex flex-col justify-center w-[80vw] text-white bottom-5">
             <div className="my-4">
-              <ul className="flex list-disc justify-center">
-                <li className="list-none mr-3">Drama</li>
+              <ul className="flex list-disc justify-center text-sm">
+                <li className="list-none mx-3">Drama</li>
                 <li className="mx-3">Thriller</li>
                 <li className="mx-3">Crime</li>
                 <li className="mx-3">Mystery</li>
               </ul>
             </div>
-            <div>
+            <div className="flex justify-center">
               <Link to={"/watch?v=" + id}>
-                <button className="bg-white text-black py-2 my-1 font-bold mx-2 px-12 md:px-12 text-sm  rounded-sm">
+                <button className="bg-white text-black py-2 px-[10vw] mx-2 font-bold text-sm  rounded-sm">
                   <FontAwesomeIcon color="black" icon={faPlay} /> Play
                 </button>
               </Link>
               <button
-                className="bg-gray-400 text-white font-bold py-2 my-1 mx-2 px-10 md:px-12 text-sm  rounded-sm"
+                className="bg-gray-400 text-white font-bold py-2 mx-2 px-[8vw] text-sm  rounded-sm"
                 onClick={() => {
                   isPresentInList
                     ? removeFromMyList(dispatch, mainMovie, setIsPresentInList)
