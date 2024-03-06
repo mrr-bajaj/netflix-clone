@@ -67,9 +67,9 @@ const MovieList = ({ title, movies }) => {
           </button>
         )}
         <div
-          className={`slider flex flex-grow overflow-visible  transition-transform ease-in-out translate-x-[-${
+          className={`slider flex flex-grow overflow-visible transition-transform ease-in-out translate-x-\[-${
             100 * sliderIndex
-          }%]`}
+          }\%\]`}
         >
           {movies.map((movie, movieIndex) => (
             <MovieCard

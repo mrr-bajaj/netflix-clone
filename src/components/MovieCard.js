@@ -153,7 +153,7 @@ const MovieCard = ({ movieInfo, itemsPerScreen, movieIndex }) => {
     <div
       className={`aspect-video mx-1 flex-grow-0 group hover:scale-150 ${
         movieIndex % itemsPerScreen === 0 ? "hover:translate-x-[4.2rem]" : ""
-      } flex-shrink-0 flex flex-col w-[${widthPer}%] max-w-[${widthPer}]`}
+      } flex-shrink-0 flex flex-col w-\[${widthPer}\%\] `}
       onMouseEnter={() => {
         setIsPresentInList(myList.some((list) => list.id === movieInfo?.id));
       }}

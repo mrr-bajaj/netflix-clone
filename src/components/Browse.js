@@ -13,6 +13,7 @@ import useSetProfileId from "../hooks/useSetProfileId";
 import DesktopView from "./DesktopView";
 import MobileView from "./MobileView";
 import MobileModal from "./MobileModal";
+import Footer from "./Footer";
 
 const Browse = () => {
   useURLChecker();
@@ -40,6 +41,8 @@ const Browse = () => {
       <div className="md:hidden">
         <MobileModal></MobileModal>
       </div>
+
+      <Footer></Footer>
     </div>
   );
 };
