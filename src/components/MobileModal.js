@@ -12,7 +12,7 @@ import useListUtils from "../hooks/useListUtils";
 
 const MobileModal = () => {
   const dispatch = useDispatch();
-  const { addToMyList, removeFromMyList } = useListUtils();
+  const { addToMyList, removeFromMyList, postToViewedMovies } = useListUtils();
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
@@ -83,7 +83,10 @@ const MobileModal = () => {
                   </button>
                 </div>
                 <Link to={"/watch?v=" + key}>
-                  <button className="bg-white w-full my-2 font-bold text-lg text-black px-10 py-2 rounded-md">
+                  <button
+                    className="bg-white w-full my-2 font-bold text-lg text-black px-10 py-2 rounded-md"
+                    onClick={() => postToViewedMovies(modalTrailerInfo)}
+                  >
                     <FontAwesomeIcon color="black" icon={faPlay} /> Play
                   </button>
                 </Link>

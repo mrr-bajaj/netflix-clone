@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
 import {
   addModalMovieInfo,
+  addModalTrailerInfo,
   addModalVideo,
   addSimilarVideos,
 } from "../utils/moviesSlice";
@@ -11,6 +12,25 @@ const useModalVideo = (setIsPresentInList) => {
   const dispatch = useDispatch();
   const key = useSelector((store) => store.config.path);
   const myList = useSelector((store) => store.user.myList);
+  const upcomingMovies = useSelector((store) => store.movies.upcomingMovies);
+  const topRatedMovies = useSelector((store) => store.movies.topRatedMovies);
+  const popularMovies = useSelector((store) => store.movies.popularMovies);
+  const nowPlayingMovies = useSelector(
+    (store) => store.movies.nowPlayingMovies
+  );
+
+  const setModalTrailerInfo = () => {
+    let modalTrailerInfo;
+    if (upcomingMovies)
+      modalTrailerInfo = upcomingMovies.filter((movie) => movie.id === +key);
+    if (topRatedMovies)
+      modalTrailerInfo = topRatedMovies.filter((movie) => movie.id === +key);
+    if (popularMovies)
+      modalTrailerInfo = popularMovies.filter((movie) => movie.id === +key);
+    if (nowPlayingMovies)
+      modalTrailerInfo = nowPlayingMovies.filter((movie) => movie.id === +key);
+    if (modalTrailerInfo) dispatch(addModalTrailerInfo(modalTrailerInfo[0]));
+  };
 
   const getMovieVideosInfo = async (jbvValue) => {
     const data = await fetch(
@@ -88,13 +108,23 @@ const useModalVideo = (setIsPresentInList) => {
     getMovieInfo(jbvValue);
   };
   const checkIsPresentInList = () => {
-    setIsPresentInList(myList.some((list) => list.id === key));
+    setIsPresentInList(myList.find((list) => list.id === +key));
   };
+
+  useEffect(() => {
+    if (upcomingMovies) {
+      setModalTrailerInfo();
+    }
+  }, [upcomingMovies]);
+
+  useEffect(() => {
+    if (myList) checkIsPresentInList();
+  }, [myList]);
+
   useEffect(() => {
     if (key) {
       document.body.style.overflow = "hidden";
       getModalVideo(key);
-      checkIsPresentInList();
     } // Disable scrolling
     else {
       document.body.style.overflow = ""; // Enable scrolling

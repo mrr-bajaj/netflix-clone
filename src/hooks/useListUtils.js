@@ -1,12 +1,13 @@
 import { addDoc, collection, deleteDoc, getDocs } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../utils/firebase";
-import { addMyList, removeMyList } from "../utils/userSlice";
+import { addMyList, addViewedMovie, removeMyList } from "../utils/userSlice";
 
 const useListUtils = () => {
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   const activeProfileId = useSelector((store) => store.user.activeProfileId);
+  const viewedMovies = useSelector((store) => store.user.viewedMovies);
 
   const addToMyList = (movieInfo, setIsPresentInList) => {
     postToMyList(movieInfo, setIsPresentInList);
@@ -38,7 +39,22 @@ const useListUtils = () => {
     dispatch(addMyList(movieInfo));
   };
 
-  return { removeFromMyList, addToMyList };
+  const postToViewedMovies = async (movieInfo) => {
+    if (
+      viewedMovies.length > 0 &&
+      !viewedMovies.find((movie) => movie.id === movieInfo.id)
+    ) {
+      const viewedMoviesRef = collection(
+        db,
+        `users/${userId}/profiles/${activeProfileId}/viewed`
+      );
+
+      await addDoc(viewedMoviesRef, movieInfo);
+      dispatch(addViewedMovie(movieInfo));
+    }
+  };
+
+  return { removeFromMyList, addToMyList, postToViewedMovies };
 };
 
 export default useListUtils;

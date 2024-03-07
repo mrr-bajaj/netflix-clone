@@ -5,8 +5,18 @@ import MobileMovieList from "./MobileMovieList";
 const MobileSecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
   const myList = useSelector((store) => store.user.myList);
+  const viewedMovies = useSelector((store) => store.user.viewedMovies);
   return (
     <div className="mt-4 bg-black text-white">
+      {viewedMovies.length > 0 && (
+        <MobileMovieList
+          title={"Continue Watching for Shubham"}
+          movies={viewedMovies}
+        ></MobileMovieList>
+      )}
+      {myList.length > 0 && (
+        <MobileMovieList title={"My List"} movies={myList}></MobileMovieList>
+      )}
       {movies.nowPlayingMovies && (
         <MobileMovieList
           title={"Now Playing Movies"}
@@ -18,9 +28,6 @@ const MobileSecondaryContainer = () => {
           title={"Top Rated Movies"}
           movies={movies.topRatedMovies}
         ></MobileMovieList>
-      )}
-      {myList.length > 0 && (
-        <MobileMovieList title={"My List"} movies={myList}></MobileMovieList>
       )}
       {movies.popularMovies && (
         <MobileMovieList

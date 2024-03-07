@@ -14,15 +14,17 @@ import DesktopView from "./DesktopView";
 import MobileView from "./MobileView";
 import MobileModal from "./MobileModal";
 import Footer from "./Footer";
+import useViewedMovies from "../hooks/useViewedMovies";
 
 const Browse = () => {
   useURLChecker();
   useSetProfileId();
+  useMyListMovies();
+  useViewedMovies();
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
   useUpcomingMovies();
-  useMyListMovies();
 
   const device = useSelector((store) => store.config.device);
   // const showGptSearch = useSelector((store) => store.gpt.showGptSearch);

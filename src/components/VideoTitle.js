@@ -5,10 +5,12 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { updatePath } from "../utils/configSlice";
 import { addModalTrailerInfo } from "../utils/moviesSlice";
+import useListUtils from "../hooks/useListUtils";
 
 const VideoTitle = ({ movieInfo }) => {
   const { title, overview, id } = movieInfo;
   const dispatch = useDispatch();
+  const { postToViewedMovies } = useListUtils();
   return (
     <div className="pt-[20%] px-6 md:px-24 absolute bg-gradient-to-r from-black w-[100%] aspect-video text-white">
       <h1 className="text-2xl md:text-6xl font-bold">{title}</h1>
@@ -16,7 +18,10 @@ const VideoTitle = ({ movieInfo }) => {
       <div>
         <Link to={"/watch?v=" + id}>
           {" "}
-          <button className="bg-white text-black py-2 my-1 md:py-4 px-4 md:px-12 text-sm md:text-xl hover:bg-opacity-80 rounded-lg">
+          <button
+            className="bg-white text-black py-2 my-1 md:py-4 px-4 md:px-12 text-sm md:text-xl hover:bg-opacity-80 rounded-lg"
+            onClick={() => postToViewedMovies(movieInfo)}
+          >
             {" "}
             <FontAwesomeIcon color="black" icon={faPlay} /> Play
           </button>{" "}

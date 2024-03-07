@@ -7,6 +7,7 @@ const userSlice = createSlice({
     profiles: [],
     myList: [],
     activeProfileId: null,
+    viewedMovies: [],
   },
   reducers: {
     addUserEmail: (state, action) => {
@@ -18,6 +19,7 @@ const userSlice = createSlice({
         profiles: [],
         myList: [],
         activeProfileId: null,
+        viewedMovies: [],
       };
     },
     addProfile: (state, action) => {
@@ -44,6 +46,12 @@ const userSlice = createSlice({
     removeActiveProfileId: (state) => {
       state.activeProfileId = null;
     },
+    addViewedMovie: (state, action) => {
+      state.viewedMovies.push(action.payload);
+    },
+    addAllViewedMovies: (state, action) => {
+      state.viewedMovies = action.payload;
+    },
   },
 });
 
@@ -58,5 +66,7 @@ export const {
   addAllMyList,
   removeActiveProfileId,
   clearMyList,
+  addViewedMovie,
+  addAllViewedMovies,
 } = userSlice.actions;
 export default userSlice.reducer;

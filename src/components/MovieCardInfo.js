@@ -16,13 +16,16 @@ const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
   const dispatch = useDispatch();
   const [isMyList, setIsMyList] = useState(false);
   const [isMoreInfo, setIsMoreInfo] = useState(false);
-  const { removeFromMyList, addToMyList } = useListUtils();
+  const { removeFromMyList, addToMyList, postToViewedMovies } = useListUtils();
   return (
     <div className="text-sm">
       <div className="flex justify-between p-1 ">
         <div>
           <Link to={"/watch?v=" + movieInfo?.id}>
-            <button className="bg-white m-1 pr-2 pl-3 py-1 rounded-full">
+            <button
+              className="bg-white m-1 pr-2 pl-3 py-1 rounded-full"
+              onClick={() => postToViewedMovies(movieInfo)}
+            >
               <FontAwesomeIcon color="black" icon={faPlay} />
             </button>
           </Link>

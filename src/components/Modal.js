@@ -16,7 +16,7 @@ import useListUtils from "../hooks/useListUtils";
 
 const Modal = () => {
   const dispatch = useDispatch();
-  const { removeFromMyList, addToMyList } = useListUtils;
+  const { removeFromMyList, addToMyList, postToViewedMovies } = useListUtils();
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
@@ -30,6 +30,7 @@ const Modal = () => {
     dispatch(updatePath(null));
     dispatch(removeModalVideo());
   };
+  
   useModalVideo(setIsPresentInList);
   return (
     <>
@@ -56,7 +57,10 @@ const Modal = () => {
                 ></iframe>
                 <div className="absolute z-100 m-6 mt-[-20%]">
                   <Link to={"/watch?v=" + key}>
-                    <button className="bg-white font-bold text-lg text-black px-10 py-2 rounded-md">
+                    <button
+                      className="bg-white font-bold text-lg text-black px-10 py-2 rounded-md"
+                      onClick={() => postToViewedMovies(modalTrailerInfo)}
+                    >
                       <FontAwesomeIcon color="black" icon={faPlay} /> Play
                     </button>
                   </Link>

@@ -9,7 +9,7 @@ import useListUtils from "../hooks/useListUtils";
 const MobileMainContainer = () => {
   const [isPresentInList, setIsPresentInList] = useState();
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  const { addToMyList, removeFromMyList } = useListUtils();
+  const { addToMyList, removeFromMyList, postToViewedMovies } = useListUtils();
   if (!movies) return;
   const mainMovie = movies[0];
   const { id } = mainMovie;
@@ -34,7 +34,10 @@ const MobileMainContainer = () => {
             </div>
             <div className="flex justify-center">
               <Link to={"/watch?v=" + id}>
-                <button className="bg-white text-black py-2 px-[10vw] mx-2 font-bold text-sm  rounded-sm">
+                <button
+                  className="bg-white text-black py-2 px-[10vw] mx-2 font-bold text-sm  rounded-sm"
+                  onClick={() => postToViewedMovies(mainMovie)}
+                >
                   <FontAwesomeIcon color="black" icon={faPlay} /> Play
                 </button>
               </Link>
