@@ -18,7 +18,7 @@ const MovieCard = ({ movieInfo, itemsPerScreen, movieIndex }) => {
   if (!movieInfo) return null;
   return (
     <div
-      className={`aspect-video mx-1 flex-grow-0 group hover:scale-150 ${
+      className={`aspect-video mx-1 flex-grow-0 hover:z-50 group hover:scale-150 ${
         movieIndex % itemsPerScreen === 0 ? "hover:translate-x-[4.2rem]" : ""
       } flex-shrink-0 flex flex-col w-[16%] `}
       onMouseEnter={() => {
