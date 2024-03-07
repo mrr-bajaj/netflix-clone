@@ -40,10 +40,8 @@ const useListUtils = () => {
   };
 
   const postToViewedMovies = async (movieInfo) => {
-    if (
-      viewedMovies.length > 0 &&
-      !viewedMovies.find((movie) => movie.id === movieInfo.id)
-    ) {
+    const isPresent = viewedMovies.find((movie) => movie.id === movieInfo.id);
+    if (!isPresent) {
       const viewedMoviesRef = collection(
         db,
         `users/${userId}/profiles/${activeProfileId}/viewed`
