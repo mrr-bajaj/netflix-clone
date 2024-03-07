@@ -8,19 +8,19 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 const MovieCard = ({ movieInfo, itemsPerScreen, movieIndex }) => {
   const myList = useSelector((store) => store.user.myList);
   const [isPresentInList, setIsPresentInList] = useState(false);
-  const widthPer = 100 / itemsPerScreen;
-  const [width, setWidth] = useState(`w-[${widthPer}%]`);
-  useEffect(() => {
-    let wid = Math.floor(100 / itemsPerScreen);
-    setWidth(`w-[${wid}%]`);
-  }, [itemsPerScreen]);
+  // const widthPer = 100 / itemsPerScreen;
+  // const [width, setWidth] = useState(`w-[${widthPer}%]`);
+  // useEffect(() => {
+  //   let wid = Math.floor(100 / itemsPerScreen);
+  //   setWidth(`w-[${wid}%]`);
+  // }, [itemsPerScreen]);
 
   if (!movieInfo) return null;
   return (
     <div
       className={`aspect-video mx-1 flex-grow-0 group hover:scale-150 ${
         movieIndex % itemsPerScreen === 0 ? "hover:translate-x-[4.2rem]" : ""
-      } flex-shrink-0 flex flex-col ${width} `}
+      } flex-shrink-0 flex flex-col w-[16%] `}
       onMouseEnter={() => {
         setIsPresentInList(myList.some((list) => list.id === movieInfo?.id));
       }}
