@@ -6,11 +6,16 @@ const MobileSecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
   const myList = useSelector((store) => store.user.myList);
   const viewedMovies = useSelector((store) => store.user.viewedMovies);
+  const activeProfileId = useSelector((store) => store.user.activeProfileId);
+  const profiles = useSelector((store) => store.user.profiles);
+  const activeProfileName = profiles
+    .filter((prof) => prof.id === activeProfileId)
+    .map((prof) => prof.name);
   return (
     <div className="mt-4 bg-black text-white">
       {viewedMovies.length > 0 && (
         <MobileMovieList
-          title={"Continue Watching for Shubham"}
+          title={`Continue Watching for ${activeProfileName}`}
           movies={viewedMovies}
         ></MobileMovieList>
       )}
