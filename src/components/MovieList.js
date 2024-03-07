@@ -9,8 +9,30 @@ const MovieList = ({ title, movies }) => {
 
   const progressBarItemCount = Math.floor(itemCount / itemsPerScreen);
 
+  const [translateXClass, setTranslateX] = useState("translate-x-[0]");
+
+  const setClass = () => {
+    switch (sliderIndex) {
+      case 1:
+        setTranslateX("translate-x-[-100%]");
+        break;
+      case 2:
+        setTranslateX("translate-x-[-200%]");
+        break;
+      case 3:
+        setTranslateX("translate-x-[-300%]");
+        break;
+      case 4:
+        setTranslateX("translate-x-[-400%]");
+        break;
+      default:
+        setTranslateX("translate-x-[0]");
+    }
+  };
+
   useEffect(() => {
     calculateProgressBar();
+    setClass();
   }, [sliderIndex]);
   const calculateProgressBar = () => {
     const tempItem = [];
@@ -67,9 +89,7 @@ const MovieList = ({ title, movies }) => {
           </button>
         )}
         <div
-          className={`slider flex flex-grow overflow-visible transition-transform ease-in-out translate-x-[${
-            -100 * sliderIndex
-          }%]`}
+          className={`slider flex flex-grow overflow-visible transition-transform ease-in-out ${translateXClass}`}
         >
           {movies.map((movie, movieIndex) => (
             <MovieCard
