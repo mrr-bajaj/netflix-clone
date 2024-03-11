@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import usePopularMovies from "../hooks/usePopularMovies";
-import GptSearchPage from "./GptSearchPage";
+import GptSearchPage from "../pages/GPTSearch/GptSearchPage";
 import { useSelector } from "react-redux";
 import Modal from "./Modal";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
