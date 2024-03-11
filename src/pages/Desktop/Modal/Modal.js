@@ -12,11 +12,11 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import useListUtils from "../../../hooks/useListUtils";
+import useMovieUtils from "../../../hooks/useMovieUtils";
 
 const Modal = () => {
   const dispatch = useDispatch();
-  const { removeFromMyList, addToMyList, postToViewedMovies } = useListUtils();
+  const { removeFromMyList, addToMyList, postToViewedMovies } = useMovieUtils();
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);

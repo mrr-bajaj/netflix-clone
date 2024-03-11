@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import useListUtils from "../../../../hooks/useListUtils";
+import useMovieUtils from "../../../../hooks/useMovieUtils";
 
 const SimilarMobileVideoCard = ({ videoInfo }) => {
   const navigate = useNavigate();
-  const { postToViewedMovies } = useListUtils();
+  const { postToViewedMovies } = useMovieUtils();
   if (!videoInfo?.backdrop_path) return;
   return (
     <>

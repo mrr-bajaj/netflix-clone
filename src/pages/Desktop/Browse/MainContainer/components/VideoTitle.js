@@ -5,12 +5,12 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { updatePath } from "../../../../../redux/slices/configSlice";
 import { addModalTrailerInfo } from "../../../../../redux/slices/moviesSlice";
-import useListUtils from "../../../../../hooks/useListUtils";
+import useMovieUtils from "../../../../../hooks/useMovieUtils";
 
 const VideoTitle = ({ movieInfo }) => {
   const { title, overview, id } = movieInfo;
   const dispatch = useDispatch();
-  const { postToViewedMovies } = useListUtils();
+  const { postToViewedMovies } = useMovieUtils();
   return (
     <div className="pt-[20%] px-6 md:px-24 absolute bg-gradient-to-r from-black w-[100%] aspect-video text-white">
       <h1 className="text-2xl md:text-6xl font-bold">{title}</h1>

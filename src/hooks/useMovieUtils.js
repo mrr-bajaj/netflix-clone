@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { db } from "../config/firebase";
 import { addMyList, addViewedMovie, removeMyList } from "../redux/slices/userSlice";
 
-const useListUtils = () => {
+const useMovieUtils = () => {
   const userId = localStorage.getItem("userId");
   const dispatch = useDispatch();
   const activeProfileId = useSelector((store) => store.user.activeProfileId);
@@ -55,4 +55,4 @@ const useListUtils = () => {
   return { removeFromMyList, addToMyList, postToViewedMovies };
 };
 
-export default useListUtils;
+export default useMovieUtils;

@@ -4,12 +4,12 @@ import { IMG_CDN_URL } from "../../../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import useListUtils from "../../../../hooks/useListUtils";
+import useMovieUtils from "../../../../hooks/useMovieUtils";
 
 const MobileMainContainer = () => {
   const [isPresentInList, setIsPresentInList] = useState();
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
-  const { addToMyList, removeFromMyList, postToViewedMovies } = useListUtils();
+  const { addToMyList, removeFromMyList, postToViewedMovies } = useMovieUtils();
   if (!movies) return;
   const mainMovie = movies[0];
   const { id } = mainMovie;

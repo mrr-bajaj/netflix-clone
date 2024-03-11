@@ -8,11 +8,11 @@ import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import useMobileModalVideo from "../../../hooks/useMobileModalVideo";
 import { FaArrowLeft } from "react-icons/fa";
 import SimilarMobileVideoCard from "./components/SimilarMobileVideoCard";
-import useListUtils from "../../../hooks/useListUtils";
+import useMovieUtils from "../../../hooks/useMovieUtils";
 
 const MobileModal = () => {
   const dispatch = useDispatch();
-  const { addToMyList, removeFromMyList, postToViewedMovies } = useListUtils();
+  const { addToMyList, removeFromMyList, postToViewedMovies } = useMovieUtils();
   const modalVideo = useSelector((store) => store.movies.modalVideo);
   const modalMovieInfo = useSelector((store) => store.movies.modalMovieInfo);
   const similarVideos = useSelector((store) => store.movies.similarVideos);
