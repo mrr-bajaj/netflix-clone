@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import useListUtils from "../../../../hooks/useListUtils";
+import useListUtils from "../../../../../hooks/useListUtils";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,8 +9,8 @@ import {
   faPlay,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { addModalTrailerInfo } from "../../../../redux/slices/moviesSlice";
-import { updatePath } from "../../../../redux/slices/configSlice";
+import { addModalTrailerInfo } from "../../../../../redux/slices/moviesSlice";
+import { updatePath } from "../../../../../redux/slices/configSlice";
 
 const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
   const dispatch = useDispatch();

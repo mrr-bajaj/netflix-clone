@@ -1,6 +1,6 @@
 import React from "react";
-import MainContainer from "../pages/Browse/MainContainer/MainContainer";
-import SecondaryContainer from "../pages/Browse/SecondaryContainer/SecondaryContainer";
+import MainContainer from "../Desktop/Browse/MainContainer/MainContainer";
+import SecondaryContainer from "../Desktop/Browse/SecondaryContainer/SecondaryContainer";
 
 const DesktopView = () => {
   return (

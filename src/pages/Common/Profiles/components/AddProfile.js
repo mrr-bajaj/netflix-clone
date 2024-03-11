@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
-import { USER_AVATARS } from "../../../utils/constants";
+import { USER_AVATARS } from "../../../../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { showAddProfile } from "../../../redux/slices/configSlice";
-import { addProfile } from "../../../redux/slices/userSlice";
-import { checkProfileName } from "../../../utils/validate";
+import { showAddProfile } from "../../../../redux/slices/configSlice";
+import { addProfile } from "../../../../redux/slices/userSlice";
+import { checkProfileName } from "../../../../utils/validate";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../config/firebase";
+import { db } from "../../../../config/firebase";
 
 const AddProfile = ({ count }) => {
   const dispatch = useDispatch();

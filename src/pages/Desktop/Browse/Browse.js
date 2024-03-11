@@ -1,20 +1,20 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import useNowPlayingMovies from "../../hooks/useNowPlayingMovies";
-import usePopularMovies from "../../hooks/usePopularMovies";
-import GptSearchPage from "../GPTSearch/GptSearchPage";
+import Header from "../../../components/Header/Header";
+import useNowPlayingMovies from "../../../hooks/useNowPlayingMovies";
+import usePopularMovies from "../../../hooks/usePopularMovies";
+import GptSearchPage from "../../Common/GPTSearch/GptSearchPage";
 import { useSelector } from "react-redux";
 import Modal from "../Modal/Modal";
-import useTopRatedMovies from "../../hooks/useTopRatedMovies";
-import useUpcomingMovies from "../../hooks/useUpcomingMovies";
-import useURLChecker from "../../hooks/useURLChecker";
-import useMyListMovies from "../../hooks/useMyListsMovies";
-import useSetProfileId from "../../hooks/useSetProfileId";
-import DesktopView from "../../components/DesktopView";
-import MobileView from "../Mobile/MobileView";
-import MobileModal from "../Mobile/Modal/MobileModal";
-import useViewedMovies from "../../hooks/useViewedMovies";
-import Footer from "../../components/Footer/Footer";
+import useTopRatedMovies from "../../../hooks/useTopRatedMovies";
+import useUpcomingMovies from "../../../hooks/useUpcomingMovies";
+import useURLChecker from "../../../hooks/useURLChecker";
+import useMyListMovies from "../../../hooks/useMyListsMovies";
+import useSetProfileId from "../../../hooks/useSetProfileId";
+import DesktopView from "../DesktopView";
+import MobileView from "../../Mobile/MobileView";
+import MobileModal from "../../Mobile/Modal/MobileModal";
+import useViewedMovies from "../../../hooks/useViewedMovies";
+import Footer from "../../../components/Footer/Footer";
 
 const Browse = () => {
   useURLChecker();

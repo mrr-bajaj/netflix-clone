@@ -12,7 +12,7 @@ import {
 import { LOGO, SUPPORTED_LANGUAGES, USER_AVATARS } from "../../utils/constants";
 import { toggleGptSearchView } from "../../redux/slices/gptSlice";
 import { changeLanguage } from "../../redux/slices/configSlice";
-import { checkAndPostUser } from "../../pages/Login/Login";
+import { checkAndPostUser } from "../../pages/Common/Login/Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faUserCog } from "@fortawesome/free-solid-svg-icons";
 import useGetProfiles from "../../hooks/useGetProfiles";

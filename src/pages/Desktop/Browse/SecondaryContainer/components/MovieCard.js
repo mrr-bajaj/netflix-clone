@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IMG_CDN_URL } from "../../../../utils/constants";
+import { IMG_CDN_URL } from "../../../../../utils/constants";
 import { useSelector } from "react-redux";
 import MovieCardInfo from "./MovieCardInfo";
 import { LazyLoadImage } from "react-lazy-load-image-component";

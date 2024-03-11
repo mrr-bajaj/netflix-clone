@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updatePath } from "../../redux/slices/configSlice";
-import { removeModalVideo } from "../../redux/slices/moviesSlice";
-import useModalVideo from "../../hooks/useModalVideo";
+import { updatePath } from "../../../redux/slices/configSlice";
+import { removeModalVideo } from "../../../redux/slices/moviesSlice";
+import useModalVideo from "../../../hooks/useModalVideo";
 import SimilarVideoCard from "./components/SimilarVideoCard";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import useListUtils from "../../hooks/useListUtils";
+import useListUtils from "../../../hooks/useListUtils";
 
 const Modal = () => {
   const dispatch = useDispatch();
