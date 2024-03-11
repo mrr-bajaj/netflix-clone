@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addActiveProfileId } from "../utils/userSlice";
+import { addActiveProfileId } from "../redux/slices/userSlice";
 
 const useSetProfileId = () => {
   const [activeProfileId, setActiveProfileId] = useState();

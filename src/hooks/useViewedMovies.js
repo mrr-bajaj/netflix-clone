@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { addAllViewedMovies } from "../utils/userSlice";
+import { addAllViewedMovies } from "../redux/slices/userSlice";
 
 const useViewedMovies = () => {
   const dispatch = useDispatch();

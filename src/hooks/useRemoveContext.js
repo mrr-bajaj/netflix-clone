@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearMovies } from "../utils/moviesSlice";
-import { clearMyList } from "../utils/userSlice";
+import { clearMovies } from "../redux/slices/moviesSlice";
+import { clearMyList } from "../redux/slices/userSlice";
 
 const useRemoveContext = () => {
   const dispatch = useDispatch();

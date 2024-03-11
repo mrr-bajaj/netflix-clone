@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePath } from "../utils/configSlice";
-import { removeModalVideo } from "../utils/moviesSlice";
+import { updatePath } from "../redux/slices/configSlice";
+import { removeModalVideo } from "../redux/slices/moviesSlice";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";

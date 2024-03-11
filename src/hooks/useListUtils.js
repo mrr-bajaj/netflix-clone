@@ -1,7 +1,7 @@
 import { addDoc, collection, deleteDoc, getDocs } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { db } from "../config/firebase";
-import { addMyList, addViewedMovie, removeMyList } from "../utils/userSlice";
+import { addMyList, addViewedMovie, removeMyList } from "../redux/slices/userSlice";
 
 const useListUtils = () => {
   const userId = localStorage.getItem("userId");

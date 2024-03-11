@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addTrailerVideo, addWatchVideo } from "../utils/moviesSlice";
+import { addTrailerVideo, addWatchVideo } from "../redux/slices/moviesSlice";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 

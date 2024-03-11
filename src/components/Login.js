@@ -9,7 +9,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { addUserEmail } from "../utils/userSlice";
+import { addUserEmail } from "../redux/slices/userSlice";
 import { BG_URL, authErrors } from "../utils/constants";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 

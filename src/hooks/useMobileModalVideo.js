@@ -4,7 +4,7 @@ import {
   addModalMovieInfo,
   addModalVideo,
   addSimilarVideos,
-} from "../utils/moviesSlice";
+} from "../redux/slices/moviesSlice";
 import { useEffect } from "react";
 
 const useMobileModalVideo = () => {

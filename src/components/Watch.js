@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import useMovieTrailer from "../hooks/useMovieTrailer";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import { addWatchVideo } from "../utils/moviesSlice";
-import { updatePath } from "../utils/configSlice";
+import { addWatchVideo } from "../redux/slices/moviesSlice";
+import { updatePath } from "../redux/slices/configSlice";
 
 const Watch = () => {
   const [searchParams] = useSearchParams();

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addDevice } from "../utils/configSlice";
+import { addDevice } from "../redux/slices/configSlice";
 
 const useDeviceCheck = () => {
   const dispatch = useDispatch();

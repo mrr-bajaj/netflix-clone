@@ -9,8 +9,8 @@ import {
   faPlay,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { addModalTrailerInfo } from "../utils/moviesSlice";
-import { updatePath } from "../utils/configSlice";
+import { addModalTrailerInfo } from "../redux/slices/moviesSlice";
+import { updatePath } from "../redux/slices/configSlice";
 
 const MovieCardInfo = ({ movieInfo, isPresentInList, setIsPresentInList }) => {
   const dispatch = useDispatch();

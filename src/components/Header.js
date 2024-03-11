@@ -8,15 +8,15 @@ import {
   clearMyList,
   removeActiveProfileId,
   removeUser,
-} from "../utils/userSlice";
+} from "../redux/slices/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES, USER_AVATARS } from "../utils/constants";
-import { toggleGptSearchView } from "../utils/gptSlice";
-import { changeLanguage } from "../utils/configSlice";
+import { toggleGptSearchView } from "../redux/slices/gptSlice";
+import { changeLanguage } from "../redux/slices/configSlice";
 import { checkAndPostUser } from "./Login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faUserCog } from "@fortawesome/free-solid-svg-icons";
 import useGetProfiles from "../hooks/useGetProfiles";
-import { clearMovies } from "../utils/moviesSlice";
+import { clearMovies } from "../redux/slices/moviesSlice";
 
 const Header = () => {
   const navigate = useNavigate();

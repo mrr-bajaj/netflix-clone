@@ -2,7 +2,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
 import { db } from "../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addAllProfiles } from "../utils/userSlice";
+import { addAllProfiles } from "../redux/slices/userSlice";
 
 const useGetProfiles = () => {
   const dispatch = useDispatch();

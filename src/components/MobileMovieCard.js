@@ -2,7 +2,7 @@ import React from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updatePath } from "../utils/configSlice";
+import { updatePath } from "../redux/slices/configSlice";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 

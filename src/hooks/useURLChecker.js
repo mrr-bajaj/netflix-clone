@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updatePath } from "../utils/configSlice";
+import { updatePath } from "../redux/slices/configSlice";
 
 const useURLChecker = () => {
   const dispatch = useDispatch();

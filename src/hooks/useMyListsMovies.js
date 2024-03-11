@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { addAllMyList } from "../utils/userSlice";
+import { addAllMyList } from "../redux/slices/userSlice";
 
 const useMyListMovies = () => {
   const dispatch = useDispatch();

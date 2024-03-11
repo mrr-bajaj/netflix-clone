@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updatePath } from "../utils/configSlice";
-import { removeModalVideo } from "../utils/moviesSlice";
+import { updatePath } from "../redux/slices/configSlice";
+import { removeModalVideo } from "../redux/slices/moviesSlice";
 import useModalVideo from "../hooks/useModalVideo";
 import SimilarVideoCard from "./SimilarVideoCard";
 import { Link } from "react-router-dom";
