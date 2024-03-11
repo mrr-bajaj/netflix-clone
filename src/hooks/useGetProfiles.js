@@ -1,6 +1,6 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addAllProfiles } from "../utils/userSlice";
 

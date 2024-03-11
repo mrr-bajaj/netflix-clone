@@ -5,7 +5,7 @@ import { showAddProfile } from "../utils/configSlice";
 import { addProfile } from "../utils/userSlice";
 import { checkProfileName } from "../utils/validate";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebase";
 
 const AddProfile = ({ count }) => {
   const dispatch = useDispatch();

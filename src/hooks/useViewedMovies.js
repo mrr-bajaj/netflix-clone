@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { db } from "../config/firebase";
 import { addAllViewedMovies } from "../utils/userSlice";
 
 const useViewedMovies = () => {
