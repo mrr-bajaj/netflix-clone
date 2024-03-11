@@ -1,8 +1,8 @@
 import Browse from "./Browse";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Login from "./Login";
+import Login from "../pages/Login/Login";
 import Watch from "./Watch";
-import Profiles from "./Profiles";
+import Profiles from "../pages/Profiles/Profiles";
 import useDeviceCheck from "../hooks/useDeviceCheck";
 
 const Body = () => {

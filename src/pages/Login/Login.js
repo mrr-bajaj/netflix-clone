@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import Header from "./Header";
-import { checkValidData } from "../utils/validate";
-import { auth, db } from "../config/firebase";
+import Header from "../../components/Header";
+import { checkValidData } from "../../utils/validate";
+import { auth, db } from "../../config/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,8 +9,8 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { addUserEmail } from "../redux/slices/userSlice";
-import { BG_URL, authErrors } from "../utils/constants";
+import { addUserEmail } from "../../redux/slices/userSlice";
+import { BG_URL, authErrors } from "../../utils/constants";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 
 export const getUsers = async () => {
