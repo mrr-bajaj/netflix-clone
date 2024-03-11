@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePath } from "../redux/slices/configSlice";
-import { removeModalVideo } from "../redux/slices/moviesSlice";
+import { updatePath } from "../../../redux/slices/configSlice";
+import { removeModalVideo } from "../../../redux/slices/moviesSlice";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
-import useMobileModalVideo from "../hooks/useMobileModalVideo";
+import useMobileModalVideo from "../../../hooks/useMobileModalVideo";
 import { FaArrowLeft } from "react-icons/fa";
-import SimilarMobileVideoCard from "./SimilarMobileVideoCard";
-import useListUtils from "../hooks/useListUtils";
+import SimilarMobileVideoCard from "./components/SimilarMobileVideoCard";
+import useListUtils from "../../../hooks/useListUtils";
 
 const MobileModal = () => {
   const dispatch = useDispatch();

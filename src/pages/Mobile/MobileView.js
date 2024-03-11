@@ -1,6 +1,6 @@
 import React from "react";
-import MobileMainContainer from "./MobileMainContainer";
-import MobileSecondaryContainer from "./MobileSecondaryContainer";
+import MobileMainContainer from "./Browse/MainContainer/MobileMainContainer";
+import MobileSecondaryContainer from "./Browse/SecondaryContainer/MobileSecondaryContainer";
 
 const MobileView = () => {
   return (

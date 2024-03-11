@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { IMG_CDN_URL } from "../utils/constants";
+import { IMG_CDN_URL } from "../../../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import useListUtils from "../hooks/useListUtils";
+import useListUtils from "../../../../hooks/useListUtils";
 
 const MobileMainContainer = () => {
   const [isPresentInList, setIsPresentInList] = useState();

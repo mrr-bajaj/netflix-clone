@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import useListUtils from "../hooks/useListUtils";
+import useListUtils from "../../../../hooks/useListUtils";
 
 const SimilarMobileVideoCard = ({ videoInfo }) => {
   const navigate = useNavigate();

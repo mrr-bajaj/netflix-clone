@@ -11,8 +11,8 @@ import useURLChecker from "../../hooks/useURLChecker";
 import useMyListMovies from "../../hooks/useMyListsMovies";
 import useSetProfileId from "../../hooks/useSetProfileId";
 import DesktopView from "../../components/DesktopView";
-import MobileView from "../../components/MobileView";
-import MobileModal from "../../components/MobileModal";
+import MobileView from "../Mobile/MobileView";
+import MobileModal from "../Mobile/Modal/MobileModal";
 import useViewedMovies from "../../hooks/useViewedMovies";
 import Footer from "../../components/Footer/Footer";
 

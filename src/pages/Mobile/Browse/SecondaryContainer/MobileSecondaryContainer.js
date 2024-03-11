@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import MobileMovieList from "./MobileMovieList";
+import MobileMovieList from "../MainContainer/components/MobileMovieList";
 
 const MobileSecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
