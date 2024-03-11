@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import useNowPlayingMovies from "../../hooks/useNowPlayingMovies";
 import usePopularMovies from "../../hooks/usePopularMovies";
 import GptSearchPage from "../GPTSearch/GptSearchPage";
 import { useSelector } from "react-redux";
-import Modal from "../../components/Modal";
+import Modal from "../Modal/Modal";
 import useTopRatedMovies from "../../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../../hooks/useUpcomingMovies";
 import useURLChecker from "../../hooks/useURLChecker";
@@ -13,8 +13,8 @@ import useSetProfileId from "../../hooks/useSetProfileId";
 import DesktopView from "../../components/DesktopView";
 import MobileView from "../../components/MobileView";
 import MobileModal from "../../components/MobileModal";
-import Footer from "../../components/Footer";
 import useViewedMovies from "../../hooks/useViewedMovies";
+import Footer from "../../components/Footer/Footer";
 
 const Browse = () => {
   useURLChecker();

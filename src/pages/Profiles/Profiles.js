@@ -1,7 +1,7 @@
 import AddProfile from "./components/AddProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { showAddProfile } from "../../redux/slices/configSlice";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import UserProfileCard from "./components/UserProfileCard";
 import useRemoveContext from "../../hooks/useRemoveContext";
 

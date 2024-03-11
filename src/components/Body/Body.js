@@ -1,9 +1,9 @@
-import Browse from "../pages/Browse/Browse";
+import Browse from "../../pages/Browse/Browse";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login/Login";
-import Watch from "./Watch";
-import Profiles from "../pages/Profiles/Profiles";
-import useDeviceCheck from "../hooks/useDeviceCheck";
+import Login from "../../pages/Login/Login";
+import Watch from "../../pages/Watch/Watch";
+import Profiles from "../../pages/Profiles/Profiles";
+import useDeviceCheck from "../../hooks/useDeviceCheck";
 
 const Body = () => {
   useDeviceCheck();
