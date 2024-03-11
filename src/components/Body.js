@@ -1,4 +1,4 @@
-import Browse from "./Browse";
+import Browse from "../pages/Browse/Browse";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import Watch from "./Watch";

@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { updatePath } from "../redux/slices/configSlice";
-import { addModalTrailerInfo } from "../redux/slices/moviesSlice";
-import useListUtils from "../hooks/useListUtils";
+import { updatePath } from "../../../../redux/slices/configSlice";
+import { addModalTrailerInfo } from "../../../../redux/slices/moviesSlice";
+import useListUtils from "../../../../hooks/useListUtils";
 
 const VideoTitle = ({ movieInfo }) => {
   const { title, overview, id } = movieInfo;
